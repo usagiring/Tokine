@@ -3,7 +3,6 @@
 *.zip
 
 ## Directory-based project format:
-.idea/
 dist/
 public/
 
