@@ -2,11 +2,6 @@
  * Created by Holo on 2017/2/7.
  */
 
-/**
- * Created by Dion on 15/3/12.
- */
-'use strict';
-
 const express = require('express');
 const compression = require('compression');
 const morgan = require('morgan');
