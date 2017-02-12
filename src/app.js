@@ -14,10 +14,12 @@ module.exports = {
 };
 
 function createServer() {
-
+    let express = require('./express');
+    return http.createServer(express);
 }
 
 function start(server, port) {
     server.listen(port, () => {
+        console.log('start app');
     });
 }

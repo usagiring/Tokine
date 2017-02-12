@@ -2,8 +2,8 @@
  * Created by RedMoon on 2017/2/7.
  */
 
-module.exports = (router, middleware) => {
-    router.get('/', helloWorld);
+module.exports = (router) => {
+    router.get('/test', helloWorld);
 };
 
 function helloWorld(req, res) {
