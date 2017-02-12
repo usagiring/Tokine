@@ -13,18 +13,13 @@ function init(server) {
     io.on('message', message => {
 
     });
-    io.on('anything', data => {
-
-    });
     io.on('connection', socket => {
         console.log('socket.io connect...');
         socket.on('disconnect', () => {
             console.log('socket.io disconnect...');
         });
-
-        socket.on('notification', notification => {
-            socket.emit('notification', notification);
-
-        });
+        socket.broadcast.emit('hi'); // except current socket
+        socket.emit('notification', {}); // send to one
     });
+    io.emit('something', {}); // send to all
 }
