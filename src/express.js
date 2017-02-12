@@ -50,6 +50,9 @@ app.use(cors({
 }));
 
 app.use('/api', require('./api'));
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/src/index.html'));
+});
 
 app.use(function (req, res, next) {
     let err = new Error('Not Found');

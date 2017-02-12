@@ -15,7 +15,11 @@ module.exports = {
 
 function createServer() {
     let express = require('./express');
-    return http.createServer(express);
+    let webSocket = require('./webSocket');
+    let server = http.createServer(express);
+    webSocket.init(server);
+
+    return server;
 }
 
 function start(server, port) {

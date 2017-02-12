@@ -13,7 +13,14 @@ function init(server) {
     io.on('message', message => {
 
     });
+
+
     io.on('connection', socket => {
+
+        socket.on('chat message', function (msg) {
+            io.emit('chat message', msg);
+        });
+
         console.log('socket.io connect...');
         socket.on('disconnect', () => {
             console.log('socket.io disconnect...');
