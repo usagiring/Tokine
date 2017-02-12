@@ -5,6 +5,8 @@
 const express = require('express');
 const compression = require('compression');
 const morgan = require('morgan');
+const path = require('path');
+const fs = require('fs');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
@@ -54,21 +56,21 @@ for (let i = 0; i < apiArray.length; i++) {
 
 app.use(function (req, res, next) {
     let err = new Error('Not Found');
-    logger.error(`404: ${err}`);
+    console.error(`404: ${err}`);
     err.status = 404;
     next(err);
 });
 
 if (app.get('env') === 'development') {
     app.use(function (err, req, res, next) {
-        logger.error(`500: ${err}`);
+        console.error(`500: ${err}`);
         res.status(err.status || 500);
         res.json(err);
     });
 }
 
 app.use(function (err, req, res, next) {
-    logger.error(`500: ${err}`);
+    console.error(`500: ${err}`);
     res.status(err.status || 500);
     res.json(err);
 });

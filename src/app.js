@@ -2,7 +2,6 @@
  * Created by Holo on 2017/2/6.
  */
 
-const _ = require('lodash');
 const os = require('os');
 const http = require('http');
 const https = require('https');
