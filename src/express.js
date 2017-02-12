@@ -46,6 +46,11 @@ app.use(cors({
     origin: true,
     credentials: true
 }));
+let routes = path.join(__dirname, './routes');
+let apiArray = fs.readdirSync(routes);
+for (let i = 0; i < apiArray.length; i++) {
+    app.use('/api', require(path.join(routes, apiArray[i])));
+}
 
 app.use(function (req, res, next) {
     let err = new Error('Not Found');
