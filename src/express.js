@@ -43,15 +43,18 @@ app.use(session({
     store: getSessionStore()
 }));
 app.use(helmet());
-app.use(express.static(path.join(__dirname, '/../public/dist')));
+app.use(express.static(path.join(__dirname, '/../public')));
 app.use(cors({
     origin: true,
     credentials: true
 }));
 
 app.use('/api', require('./api'));
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/src/index.html'));
+app.get('/chat_room', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/src/chatRoom/index.html'));
+});
+app.get('/three', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/src/three/index.html'))
 });
 
 app.use(function (req, res, next) {
