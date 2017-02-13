@@ -1,7 +1,7 @@
 ## Directory-based project format:
 .idea/
-dist/
-# public/
+# dist/
+public/lib
 
 # Dependency directory
 node_modules
