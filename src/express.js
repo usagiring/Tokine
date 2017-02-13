@@ -28,7 +28,7 @@ app.use(bodyParser.raw({limit: maxBody}));
 app.use(bodyParser.text());
 app.use(cookieParser());
 app.use(session({
-    secret: 'I LOVE LOLI',
+    secret: 'ILOVEHOLO',
     resave: false,
     saveUninitialized: false,
     cookie: {
