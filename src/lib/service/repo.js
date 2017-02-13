@@ -19,7 +19,9 @@ module.exports = {
     update,
     queryExec,
     getQuery,
-    getUpdate
+    getUpdate,
+    queryCursorClose,
+    QueryCursorEachAsync
 };
 
 function save(model, data) {
@@ -104,4 +106,12 @@ function getQuery(query) {
 
 function getUpdate(query) {
     return query.getUpdate();
+}
+
+function queryCursorClose(queryCursor) {
+    return queryCursor.close();
+}
+
+function QueryCursorEachAsync(queryCursor, func) {
+    return queryCursor.eachAsync(func);
 }
