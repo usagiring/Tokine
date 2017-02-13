@@ -21,13 +21,7 @@ let app = express();
 
 app.set('trust proxy', true);
 app.use(compression());
-app.use(morgan(':method :url :status :response-time ms - :res[content-length]', {
-    stream: {
-        write: message => {
-            console.log(message);
-        }
-    }
-}));
+app.use(morgan('tiny'));
 app.use(bodyParser.json({limit: maxBody}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.raw({limit: maxBody}));

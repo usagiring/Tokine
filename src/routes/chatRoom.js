@@ -3,7 +3,7 @@
  */
 
 module.exports = (router, middleware) => {
-    router.get('/chat_room', chatRoom, middleware);
+    router.get('/chat_room', chatRoom);
 };
 
 function chatRoom(req, res) {

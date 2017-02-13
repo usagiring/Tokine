@@ -11,4 +11,8 @@ module.exports = router;
 
 let routes = path.join(__dirname, './routes');
 let apiArray = fs.readdirSync(routes);
-apiArray.forEach(api => require(path.join(routes, api))(router));
+apiArray.forEach(api => require(path.join(routes, api))(router, middleware));
+
+function middleware() {
+
+}
