@@ -17,7 +17,9 @@ module.exports = {
     mapReduce,
     remove,
     update,
-    queryExec
+    queryExec,
+    getQuery,
+    getUpdate
 };
 
 function save(model, data) {
@@ -94,4 +96,12 @@ function queryExec(query, limit, skip, select, sort) {
         query.limit(limit);
     }
     return query.exec();
+}
+
+function getQuery(query) {
+    return query.getQuery();
+}
+
+function getUpdate(query) {
+    return query.getUpdate();
 }
