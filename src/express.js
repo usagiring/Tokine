@@ -50,6 +50,9 @@ app.get('/chat_room', (req, res) => {
 app.get('/three', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/src/three/index.html'))
 });
+app.get('/webpack', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/index.html'))
+});
 
 app.use(function (req, res, next) {
     let err = new Error('Not Found');

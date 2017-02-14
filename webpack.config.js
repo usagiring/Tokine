@@ -8,9 +8,9 @@ const path = require('path');
 let workPath = path.join(__dirname, './public/src/webpack');
 
 module.exports = {
-    entry: `${workPath}/entry.js`,
+    entry: path.join(workPath, './entry.js'),
     output: {
-        path: workPath,
+        path: path.join(workPath, '../../dist/'),
         filename: 'bundle.js'
     },
     module: {
