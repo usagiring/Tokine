@@ -13,16 +13,27 @@ module.exports = {
         path: path.join(workPath, '../../dist/'),
         filename: 'bundle.js'
     },
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            }
+        }),
+        new webpack.DefinePlugin({
+            PRODUCTION: JSON.stringify(true),
+            VERSION: JSON.stringify("5fa3b9"),
+            BROWSER_SUPPORTS_HTML5: true,
+            TWO: "1+1",
+            "typeof window": JSON.stringify("object")
+        })
+    ],
     module: {
         loaders: [
-            // {
-            //     test: /\.js$/,
-            //     exclude: /node_modules/,
-            //     loader: 'babel',
-            //     query: {
-            //         presets: ['es2015']
-            //     }
-            // },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "babel-loader"
+            },
             {
                 test: /\.css$/,
                 loader: 'style-loader!css-loader'
