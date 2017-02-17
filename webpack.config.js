@@ -5,12 +5,11 @@
 const webpack = require('webpack');
 const path = require('path');
 
-let workPath = path.join(__dirname, './public/src/webpack');
-
 module.exports = {
-    entry: path.join(workPath, './entry.js'),
+    entry: path.join(__dirname, 'public/src/app.js'),
     output: {
-        path: path.join(workPath, '../../dist/'),
+        publicPath: '/dist/',
+        path: path.join(__dirname, 'dist'),
         filename: 'bundle.js'
     },
     plugins: [

@@ -6,3 +6,5 @@ public/dist
 
 # Dependency directory
 node_modules
+
+npm-debug.log
