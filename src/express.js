@@ -44,15 +44,6 @@ app.use(cors({
 }));
 
 app.use('/api', require('./api'));
-app.get('/chat_room', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/src/chatRoom/index.html'));
-});
-app.get('/three', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/src/three/index.html'))
-});
-app.get('/webpack', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'))
-});
 
 app.use(function (req, res, next) {
     let err = new Error('Not Found');
