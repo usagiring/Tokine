@@ -12,7 +12,7 @@ function get() {
 }
 
 function add(data) {
-    return User.insert(data)
+    return User.insertOne(data)
 }
 
 function updateById(id, data) {
