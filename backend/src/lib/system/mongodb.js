@@ -6,19 +6,30 @@ const path = require('path');
 const os = require('os');
 const fs = require('fs');
 const gridFSStream = require('gridfs-stream');
-const mongoose = require('mongoose');
-const config = require('../../../config/mongodb');
-
-mongoose.Promise = global.Promise;
-gridFSStream.mongo = mongoose.mongo;
+const config = require('../../../config/mongodb')
+const mongodb = require('mongodb')
+const MongoClient = mongodb.MongoClient;
 
 module.exports = {
     getConnectUrl,
     connect,
-    getFileById
+    getDb,
+    getConnection,
+    ObjectID: mongodb.ObjectID,
 };
 
+let connectDb = null
+
+function getDb() {
+    return connectDb
+}
+
+function getConnection(name) {
+    return connectDb.collection(name)
+}
+
 function getConnectUrl() {
+    if (config.url) return config.url
     let url = 'mongodb://';
     if (config.user) url += config.user;
     if (config.password) url += ':' + config.password + '@';
@@ -32,26 +43,10 @@ function getConnectUrl() {
 
 function connect() {
     return new Promise((resolve, reject) => {
-        let url = getConnectUrl();
-        mongoose.connection.on('error', function (error) {
-            reject(error);
-        });
-        mongoose.connection.once('open', function () {
-            resolve(url);
-        });
-        mongoose.connect(url, {
-            user: config.user,
-            pass: config.password,
-            server: {poolSize: 20},
-            db: {native_parser: false}
-        });
+        MongoClient.connect(getConnectUrl(), (err, db) => {
+            if (err) reject(err)
+            connectDb = db.db("test");
+            resolve()
+        })
     })
-}
-
-function getFileById(id) {
-    let gfs = new gridFSStream(mongoose.connection.db);
-    let readOptions = {
-        _id: id
-    };
-    return gfs.createReadStream(readOptions);
 }

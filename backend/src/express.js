@@ -43,7 +43,7 @@ app.use(cors({
     credentials: true
 }));
 
-app.use('/api', require('./api'));
+app.use('/api', require('./api'))
 
 app.use(function (req, res, next) {
     let err = new Error('Not Found');
