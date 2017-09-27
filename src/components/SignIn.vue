@@ -6,7 +6,7 @@
     <div>
       <div>
         <span>username:</span>
-        <input type="text" title="username">
+        <input v-model="name" title="username" placeholder="input username">
       </div>
       <div>
         <span>password:</span>
@@ -18,17 +18,18 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-
+  const {post} = require('../utilities/rest')
   export default {
-    name: 'login',
+    name: 'sign-in',
     data: () => {
-      return {}
+      return {
+        name: ''
+      }
     },
     methods: {
       signIn(e) {
         e.preventDefault()
-        console.log('signIn')
+        return post('/api/sign-in', {name: this.name})
       }
     }
   }

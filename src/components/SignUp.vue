@@ -24,7 +24,7 @@
 
 <script>
   export default {
-    name: 'register'
+    name: 'sign-up'
   }
 </script>
 
