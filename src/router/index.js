@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Hello from '../components/Hello.vue'
+import Profile from '../components/Profile.vue'
 import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
 
@@ -10,9 +12,9 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/login'
+      // redirect: '/login'
       // name: 'Hello',
-      // component: Hello
+      component: Hello
     },
     {
       path: '/login',
@@ -23,6 +25,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile
     }
   ]
 })

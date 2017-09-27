@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div>
-      register
+      Sign Up
     </div>
     <div>
       <div>
@@ -17,8 +17,7 @@
         qq:
       </div>
     </div>
-    <router-link to="/login">login</router-link>
-
+    <el-button type="primary">Sign Up</el-button>
   </div>
 
 </template>
