@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import './style/application.scss'
 import { Button, Select } from 'element-ui'
 
 Vue.use(Button)

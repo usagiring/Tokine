@@ -17,7 +17,8 @@ exports.cssLoaders = function (options) {
     options: {
       minimize: process.env.NODE_ENV === 'production',
       sourceMap: options.sourceMap
-    }
+    },
+
   }
 
   // generate loader string to be used with extract text plugin
