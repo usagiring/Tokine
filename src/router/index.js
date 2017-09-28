@@ -4,6 +4,7 @@ import Hello from '../components/Hello.vue'
 import Profile from '../components/Profile.vue'
 import SignIn from '../components/SignIn.vue'
 import SignUp from '../components/SignUp.vue'
+import ChatRoom from '../components/ChatRoom.vue'
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ export default new Router({
       path: ':name/profile',
       name: 'profile',
       component: Profile
+    },
+    {
+      path: '/chat-room',
+      name: 'chat-room',
+      component: ChatRoom
     }
   ]
 })

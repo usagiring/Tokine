@@ -25,6 +25,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'no-unused-vars': 0,
     'no-multiple-empty-lines': 0,
-    'space-before-function-paren': 0
+    'space-before-function-paren': 0,
+    'semi': 0,
+    'padded-blocks': 0
   }
 }
