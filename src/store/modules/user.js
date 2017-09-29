@@ -10,12 +10,7 @@ let state = {
 
 let mutations = {
   setUser(state, user) {
-    // console.log(state)
-    //
-    // state = {...state, ...user}
-    // console.log(state)
-
-    state.username = user.username
+    state = Object.assign(state, user)
   }
 }
 
