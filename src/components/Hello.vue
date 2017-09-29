@@ -7,9 +7,19 @@
 <script>
   export default {
     name: 'hello',
-    data() {
-      return {
-        msg: 'Hello World'
+//    data() {
+//      return {
+//        msg: 'Hello World'
+//      }
+//    },
+    computed: {
+      msg() {
+        console.log(this.$store.state.user.username)
+        if (this.$store.state.user.username) {
+          return `Hello ${this.$store.state.user.username}`
+        } else {
+          return 'Hello World'
+        }
       }
     }
   }

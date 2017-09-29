@@ -33,6 +33,7 @@
         return post('/sign-in', {username: this.username})
           .then(user => {
             console.log(user)
+            this.$store.commit('setUser', user)
 //            router.push(`${user.username}/profile`)
             router.push('/')
           })

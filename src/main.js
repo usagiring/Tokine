@@ -4,16 +4,23 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import './style/application.scss'
-import { Button, Select } from 'element-ui'
+import {Button, Select} from 'element-ui'
+import store from './store/index'
 
 Vue.use(Button)
 Vue.use(Select)
 
 Vue.config.productionTip = false
-/* eslint-disable no-new */
-new Vue({
+
+export default new Vue({
   el: '#app',
   router,
+  store,
+  data() {
+    return {
+      user: null
+    }
+  },
   template: '<App/>',
-  components: { App }
+  components: {App}
 })

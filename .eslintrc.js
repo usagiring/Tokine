@@ -27,6 +27,9 @@ module.exports = {
     'no-multiple-empty-lines': 0,
     'space-before-function-paren': 0,
     'semi': 0,
-    'padded-blocks': 0
+    'padded-blocks': 0,
+    'indent': 0,
+    'space-before-blocks': 0,
+    'keyword-spacing': 0
   }
 }
