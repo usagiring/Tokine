@@ -1,5 +1,5 @@
 import axios from 'axios'
-import baseAPI from '../../config/baseAPI'
+import {baseAPI} from '../../config/baseAPI'
 
 function get(url) {
   return axios.get(baseAPI + url)

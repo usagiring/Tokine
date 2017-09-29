@@ -6,7 +6,7 @@
     <div>
       <div>
         <span>username:</span>
-        <input v-model="name" title="username" placeholder="input username">
+        <input v-model="username" title="username" placeholder="input username">
       </div>
       <div>
         <span>password:</span>
@@ -19,17 +19,26 @@
 
 <script>
   const {post} = require('../utilities/rest')
+  import router from '../router/index'
+
   export default {
     name: 'sign-in',
     data: () => {
       return {
-        name: ''
+        username: ''
       }
     },
     methods: {
       signIn(e) {
-        e.preventDefault()
-        return post('/api/sign-in', {name: this.name})
+        return post('/sign-in', {username: this.username})
+          .then(user => {
+            console.log(user)
+//            router.push(`${user.username}/profile`)
+            router.push('/')
+          })
+          .catch(e => {
+            console.log(e)
+          })
       }
     }
   }
