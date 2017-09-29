@@ -42,7 +42,8 @@
     methods: {
       signUp() {
         return post('/users', _.pick(this.data, ['username', 'password', 'email', 'phone']))
-          .then(() => {
+          .then(user => {
+            this.$store.commit('setUser', user)
             router.push('/')
           })
       }
