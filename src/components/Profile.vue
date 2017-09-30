@@ -19,7 +19,6 @@
     },
     methods: {
       fetchData() {
-        console.log(this.$route)
         let where = {
           username: this.$route.params.username
         }

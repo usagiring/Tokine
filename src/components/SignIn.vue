@@ -19,7 +19,6 @@
 
 <script>
   const {post} = require('../utilities/rest')
-  import router from '../router/index'
 
   export default {
     name: 'sign-in',
@@ -35,7 +34,7 @@
             console.log(user)
             this.$store.commit('setUser', user)
 //            router.push(`${user.username}/profile`)
-            router.push('/')
+            this.$route.push('/')
           })
           .catch(e => {
             console.log(e)

@@ -28,7 +28,6 @@
 
 <script>
   import {post} from '../utilities/rest'
-  import router from '../router/index'
   import _ from 'lodash'
 
   export default {
@@ -44,7 +43,7 @@
         return post('/users', _.pick(this.data, ['username', 'password', 'email', 'phone']))
           .then(user => {
             this.$store.commit('setUser', user)
-            router.push('/')
+            this.$route.push('/')
           })
       }
     }
