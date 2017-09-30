@@ -1,13 +1,17 @@
-// let host = 'https://tokine.info'
+// var host = 'https://tokine.info'
 let host = ''
 // let host = 'http://localhost:3333'
 
 let version = '/api'
 
-module.exports = {
+let baseAPI = host + version
+
+export {
   host,
   version,
-  baseAPI: host + version
+  baseAPI
 }
+
+export default baseAPI
 // module.exports = 'http://localhost:3333'
 // module.exports = ''
