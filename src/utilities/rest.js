@@ -1,23 +1,27 @@
 import axios from 'axios'
 import baseAPI from '../../config/baseAPI'
 
+const api = axios.create({
+  withCredentials: true
+})
+
 function get(url) {
-  return axios.get(baseAPI + url)
+  return api.get(baseAPI + url)
     .then(result => result.data)
 }
 
 function put(url, data) {
-  return axios.put(baseAPI + url, data)
+  return api.put(baseAPI + url, data)
     .then(result => result.data)
 }
 
 function post(url, data) {
-  return axios.post(baseAPI + url, data)
+  return api.post(baseAPI + url, data)
     .then(result => result.data)
 }
 
 function remove(url) {
-  return axios.delete(baseAPI + url)
+  return api.delete(baseAPI + url)
 }
 
 export {

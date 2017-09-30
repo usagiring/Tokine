@@ -22,5 +22,13 @@ export default new Vue({
     }
   },
   template: '<App/>',
-  components: {App}
+  components: {App},
+  created() {
+    this.isSigned();
+  },
+  methods: {
+    isSigned() {
+      store.dispatch('signed')
+    }
+  }
 })

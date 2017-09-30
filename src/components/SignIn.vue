@@ -33,8 +33,7 @@
           .then(user => {
             console.log(user)
             this.$store.commit('setUser', user)
-//            router.push(`${user.username}/profile`)
-            this.$route.push('/')
+            this.$router.push('/')
           })
           .catch(e => {
             console.log(e)

@@ -1,28 +1,31 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <router-link to="/chat-room">Go to chat-room</router-link>
-    <router-link :to="toProfile">Go to profile</router-link>
+  <div class="app-nav">
+    <div v-if="user.username">
+      <span>{{ user.username }}</span>
+      <button @click="signOut">sign out</button>
+    </div>
+    <div v-if="!user.username">
+      <router-link to="/sign-in">sign in</router-link>
+      <router-link to="/sign-up">sign up</router-link>
+    </div>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'hello',
+    name: 'app-nav',
     data() {
-      return {
-      }
+      return {}
     },
     computed: {
-      toProfile() {
-        return `${this.$store.state.user.username}/profile`
-      },
-      msg() {
-        if (this.$store.state.user.username) {
-          return `Hello ${this.$store.state.user.username}`
-        } else {
-          return 'Hello World'
-        }
+      user() {
+        return this.$store.state.user
+      }
+    },
+    methods: {
+      signOut() {
+        this.$store.dispatch('signOut')
+        this.$router.replace('/')
       }
     }
   }

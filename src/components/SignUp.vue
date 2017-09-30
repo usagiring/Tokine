@@ -43,7 +43,7 @@
         return post('/users', _.pick(this.data, ['username', 'password', 'email', 'phone']))
           .then(user => {
             this.$store.commit('setUser', user)
-            this.$route.push('/')
+            this.$router.push('/')
           })
       }
     }

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store/index'
 
 // routes
 import entry from './entry'
@@ -25,7 +26,14 @@ router.beforeEach((to, from, next) => {
     next()
   } else {
     console.log('need Sign in')
-    next('/')
+    store.dispatch('signed')
+      .then(user => {
+        if (user) {
+          next()
+        } else {
+          next('/sign-in')
+        }
+      })
   }
 })
 

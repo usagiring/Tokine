@@ -1,12 +1,14 @@
 import {get} from '../../utilities/rest'
 
-let state = {
+let schema = {
   _id: null,
   uid: null,
   username: null,
   nickname: null,
   birthday: null
 }
+
+let state = Object.assign({}, schema)
 
 let mutations = {
   setUser(state, user) {
@@ -16,8 +18,6 @@ let mutations = {
 
 let actions = {
   getUser({commit}, {username}) {
-    // this.$store.dispatch('xxx',{username})
-    // store.dispatch('getUser',{username})
     let where = {
       username
     }
@@ -25,6 +25,26 @@ let actions = {
     get(`/user?where=${where}`)
       .then(user => {
         commit('setUser', user)
+      })
+  },
+  signed({state, commit, rootState}) {
+    return new Promise((resolve, reject) => {
+      if (state._id) {
+        resolve(state)
+      } else {
+        return get(`/signed`)
+          .then(user => {
+            commit('setUser', user)
+            resolve(user)
+          })
+      }
+    })
+  },
+  signOut({state, commit}) {
+    return get(`/sign-out`)
+      .then(() => {
+        commit('setUser', schema)
+        console.log(state)
       })
   }
 }
