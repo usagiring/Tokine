@@ -1,16 +1,16 @@
 <template>
-  <div id="sign-in" class="login-container">
+  <div id="sign-in" class="sign-in-container">
     <div>
       Sign In
     </div>
     <div>
       <div>
         <span>username:</span>
-        <input v-model="username" title="username" placeholder="input username">
+        <el-input size="small" v-model="username" placeholder="please input username"></el-input>
       </div>
       <div>
         <span>password:</span>
-        <input type="password" title="password">
+        <el-input size="small" v-model="password" placeholder="please input password"></el-input>
       </div>
     </div>
     <el-button type="primary" @click="signIn">Sign In</el-button>
@@ -24,12 +24,16 @@
     name: 'sign-in',
     data: () => {
       return {
-        username: ''
+        username: '',
+        password: ''
       }
     },
     methods: {
       signIn(e) {
-        return post('/sign-in', {username: this.username})
+        return post('/sign-in', {
+          username: this.username,
+          password: this.password
+        })
           .then(user => {
             console.log(user)
             this.$store.commit('setUser', user)
@@ -46,4 +50,13 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+  .sign-in-container {
+    text-align: center;
+  }
+
+  .el-input {
+    display: inline-block;
+    width: 300px;
+  }
 </style>

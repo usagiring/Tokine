@@ -1,24 +1,24 @@
 <template>
-  <div class="login-container">
+  <div class="sign-up-container">
     <div>
       Sign Up
     </div>
-    <div>
+    <div class="sign-up-content">
       <div>
         <span>username:</span>
-        <input v-model="username" title="username"/>
+        <el-input size="small" v-model="username" placeholder="please input username"></el-input>
       </div>
       <div>
         <span>password:</span>
-        <input v-model="password" title="password"/>
+        <el-input size="small" v-model="password" placeholder="please input password"></el-input>
       </div>
       <div>
         <span>email:</span>
-        <input v-model="email" title="email"/>
+        <el-input size="small" v-model="email" placeholder="please input email"></el-input>
       </div>
       <div>
         <span>phone:</span>
-        <input v-model="phone" title="phone"/>
+        <el-input size="small" v-model="phone" placeholder="please input phone"></el-input>
       </div>
     </div>
     <el-button type="primary" @click.prevent="signUp">Sign Up</el-button>
@@ -40,7 +40,12 @@
     }),
     methods: {
       signUp() {
-        return post('/users', _.pick(this.data, ['username', 'password', 'email', 'phone']))
+        return post('/users', {
+          username: this.username,
+          password: this.password,
+          email: this.email,
+          phone: this.phone
+        })
           .then(user => {
             this.$store.commit('setUser', user)
             this.$router.push('/')
@@ -50,5 +55,23 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  .sign-up-container {
+    text-align: center;
+  }
+
+  .sign-up-content {
+    > div {
+
+      > span {
+        display: inline-block;
+        width: 100px;
+      }
+    }
+  }
+
+  .el-input {
+    display: inline-block;
+    width: 300px;
+  }
 </style>

@@ -30,6 +30,7 @@ module.exports = {
     'padded-blocks': 0,
     'indent': 0,
     'space-before-blocks': 0,
-    'keyword-spacing': 0
+    'keyword-spacing': 0,
+    'no-multi-spaces': 0
   }
 }

@@ -1,10 +1,10 @@
 <template>
   <div class="app-nav">
-    <div v-if="user.username">
-      <span>{{ user.username }}</span>
-      <button @click="signOut">sign out</button>
+    <div class="sign-btn-group" v-if="user.username">
+      <router-link class="username" to="/profile">{{ user.username }}</router-link>
+      <el-button class="sign-out-btn" type="text" @click="signOut">sign out</el-button>
     </div>
-    <div v-if="!user.username">
+    <div class="sign-btn-group" v-if="!user.username">
       <router-link to="/sign-in">sign in</router-link>
       <router-link to="/sign-up">sign up</router-link>
     </div>
@@ -31,33 +31,42 @@
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  h1, h2 {
-    font-weight: normal;
-    font-size: 50px;
+<style scoped lang="scss">
+  @import '../style/common/variables';
+
+  .app-nav {
+    position: relative;
+    height: 40px;
+    background: $blue;
   }
 
-  ul {
-    list-style-type: none;
-    padding: 0;
+  .sign-btn-group {
+    position: absolute;
+    right: 30px;
+    line-height: 40px;
+
+    > a {
+      color: $white;
+      font-size: large;
+      margin-right: 20px;
+    }
+
+    > a:hover {
+      text-decoration: underline;
+    }
   }
 
-  li {
-    display: inline-block;
-    margin: 0 10px;
+  .username{
+    font-weight: bold;
   }
 
-  a {
-    color: #42b983;
-  }
+  .sign-out-btn {
+    color: $white;
+    font-size: large;
+    margin-right: 20px;
 
-  .hello {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 </style>
