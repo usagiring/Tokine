@@ -29,3 +29,5 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 # note:
 ## sass 配置
 npm install sass-loader node-sass webpack --save-dev
+
+vps 内存小于2G build会报错
