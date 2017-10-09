@@ -1,19 +1,19 @@
 <template>
-  <div id="sign-in" class="sign-in-container">
-    <div>
-      Sign In
-    </div>
-    <div>
-      <div>
-        <span>username:</span>
-        <el-input size="small" v-model="username" placeholder="please input username"></el-input>
+  <div id="sign-in" class="sign-in-wrapper">
+    <div class="container">
+      <div class="title">
+        Sign In
       </div>
       <div>
-        <span>password:</span>
-        <el-input size="small" v-model="password" placeholder="please input password"></el-input>
+        <div>
+          <el-input size="small" v-model="username" placeholder="please input username" icon="fa-user"></el-input>
+        </div>
+        <div>
+          <el-input size="small" v-model="password" placeholder="please input password" icon="fa-key"></el-input>
+        </div>
       </div>
+      <el-button type="primary" @click="signIn">Sign In</el-button>
     </div>
-    <el-button type="primary" @click="signIn">Sign In</el-button>
   </div>
 </template>
 
@@ -49,14 +49,30 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
 
-  .sign-in-container {
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .sign-in-wrapper {
+    padding-top: 10%;
+    height: 100%;
+    background: rgba(0, 255, 120, 0.05); // 登录页背景
+  }
+
+  .container {
+    width: 450px;
+    margin: 0 auto;
     text-align: center;
+    border: 1px solid #ffffff;
   }
 
   .el-input {
     display: inline-block;
     width: 300px;
+
+    background-color: transparent; // 透明
   }
 </style>

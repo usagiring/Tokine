@@ -1,7 +1,14 @@
 <template>
   <div id="app">
-    <appNav></appNav>
-    <router-view></router-view>
+    <div class="app-head">
+      <appNav></appNav>
+    </div>
+    <div class="app-body">
+      <router-view></router-view>
+    </div>
+    <div class="app-footer">
+
+    </div>
   </div>
 </template>
 
@@ -15,3 +22,15 @@
     }
   }
 </script>
+
+<style scoped lang="scss">
+
+  #app {
+    position: relative;
+    height: 100%;
+  }
+
+  .app-body {
+    height: calc(100% - 40px);
+  }
+</style>
