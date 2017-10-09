@@ -1,18 +1,12 @@
 <template>
   <div id="sign-in" class="sign-in-wrapper">
     <div class="container">
-      <div class="title">
-        Sign In
-      </div>
+      <div class="title">Sign In</div>
+      <el-input v-model="username" placeholder="Username" icon="fa-user"></el-input>
+      <el-input v-model="password" placeholder="Password" icon="fa-key"></el-input>
       <div>
-        <div>
-          <el-input size="small" v-model="username" placeholder="please input username" icon="fa-user"></el-input>
-        </div>
-        <div>
-          <el-input size="small" v-model="password" placeholder="please input password" icon="fa-key"></el-input>
-        </div>
+        <el-button class="sign-in-btn" type="primary" @click="signIn">Sign In</el-button>
       </div>
-      <el-button type="primary" @click="signIn">Sign In</el-button>
     </div>
   </div>
 </template>
@@ -59,7 +53,7 @@
   .sign-in-wrapper {
     padding-top: 10%;
     height: 100%;
-    background: rgba(0, 255, 120, 0.05); // 登录页背景
+    background: rgba(243, 243, 243, 0.05); // 登录页背景
   }
 
   .container {
@@ -70,9 +64,13 @@
   }
 
   .el-input {
-    display: inline-block;
     width: 300px;
-
+    margin-top: 10px;
     background-color: transparent; // 透明
+  }
+
+  .sign-in-btn {
+    margin-top: 30px;
+    width: 300px;
   }
 </style>
