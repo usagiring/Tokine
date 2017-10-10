@@ -2,10 +2,10 @@
   <div id="sign-in" class="sign-in-wrapper">
     <div class="container">
       <div class="title">Sign In</div>
-      <el-input v-model="username" placeholder="Username" icon="fa-user"></el-input>
-      <el-input v-model="password" placeholder="Password" icon="fa-key"></el-input>
+      <el-input v-model.trim="username" placeholder="Username" icon="fa-user" @change=""></el-input>
+      <el-input v-model.trim="password" placeholder="Password" icon="fa-key"></el-input>
       <div>
-        <el-button class="sign-in-btn" type="primary" @click="signIn">Sign In</el-button>
+        <el-button class="sign-in-btn" type="primary" @click="signIn" :disabled="validate">Sign In</el-button>
       </div>
     </div>
   </div>
@@ -20,6 +20,11 @@
       return {
         username: '',
         password: ''
+      }
+    },
+    computed: {
+      validate() {
+        return !(this.username && this.password)
       }
     },
     methods: {
@@ -57,14 +62,13 @@
   }
 
   .container {
-    width: 450px;
+    width: 300px;
     margin: 0 auto;
     text-align: center;
     border: 1px solid #ffffff;
   }
 
   .el-input {
-    width: 300px;
     margin-top: 10px;
     background-color: transparent; // 透明
   }
