@@ -44,7 +44,7 @@
     },
     methods: {
       signUp() {
-        return post('/users', {
+        return post('/user', {
           username: this.username,
           password: this.password,
           email: this.email,
