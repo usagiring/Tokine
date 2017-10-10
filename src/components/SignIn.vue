@@ -28,7 +28,6 @@
       }
     },
     methods: {
-//      this.tools.dropSpace(e)
       signIn(e) {
         return post('/sign-in', {
           username: this.username,

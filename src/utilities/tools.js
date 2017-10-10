@@ -1,4 +1,4 @@
 export function dropSpace(str) {
-  console.log(str)
+  //      this.tools.dropSpace(e)
   return str.replace(/\s+/g, '');
 }
