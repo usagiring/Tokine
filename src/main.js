@@ -6,7 +6,9 @@ import router from './router'
 import './style/application.scss'
 import ElementUI from 'element-ui'
 import store from './store/index'
+import * as tools from './utilities/tools'
 
+Vue.prototype.tools = tools;
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false

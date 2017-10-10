@@ -2,10 +2,10 @@
   <div id="sign-in" class="sign-in-wrapper">
     <div class="container">
       <div class="title">Sign In</div>
-      <el-input v-model.trim="username" placeholder="Username" icon="fa-user" @change=""></el-input>
-      <el-input v-model.trim="password" placeholder="Password" icon="fa-key"></el-input>
+      <el-input v-model="username" placeholder="Username" icon="fa-user" autofocus></el-input>
+      <el-input type="password" v-model="password" placeholder="Password" icon="fa-key"></el-input>
       <div>
-        <el-button class="sign-in-btn" type="primary" @click="signIn" :disabled="validate">Sign In</el-button>
+        <el-button class="sign-in-btn" type="primary" @click="signIn" :disabled="!validate">Sign In</el-button>
       </div>
     </div>
   </div>
@@ -24,10 +24,11 @@
     },
     computed: {
       validate() {
-        return !(this.username && this.password)
+        return this.username && this.password
       }
     },
     methods: {
+//      this.tools.dropSpace(e)
       signIn(e) {
         return post('/sign-in', {
           username: this.username,

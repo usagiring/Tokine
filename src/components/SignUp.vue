@@ -2,9 +2,9 @@
   <div class="sign-up-wrapper">
     <div class="container">
       <div class="title">Sign Up</div>
-      <el-input v-model="username" placeholder="Username" icon="fa-user"></el-input>
-      <el-input v-model="password" placeholder="Password" icon="fa-key"></el-input>
-      <el-input v-model="replyPassword" placeholder="Reply Password" icon="fa-key"></el-input>
+      <el-input v-model="username" placeholder="Username" icon="fa-user" autofocus></el-input>
+      <el-input type="password" v-model="password" placeholder="Password" icon="fa-key"></el-input>
+      <el-input type="password" v-model="replyPassword" placeholder="Reply Password" icon="fa-key"></el-input>
       <span class="err" v-if="!isPwdPass">输入密码不一致</span>
       <el-input v-model="email" placeholder="Email" icon="fa-envelope"></el-input>
       <el-input v-model="phone" placeholder="Phone" icon="fa-phone"></el-input>
@@ -31,9 +31,11 @@
     }),
     computed: {
       isFilled() {
-        return !!(this.username && this.password)
+        return !!(this.username && this.password && this.replyPassword)
       },
       isPwdPass() {
+        if (!this.replyPassword) return true
+        if (this.password && !this.replyPassword) return false
         return this.password === this.replyPassword
       },
       validate() {
