@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../store/index'
 
+import Editor from '../components/WYSIWYG.vue'
 // routes
 import entry from './entry'
 import user from './user'
@@ -9,7 +10,13 @@ import chatRoom from './chatRoom'
 
 Vue.use(Router)
 
-let routes = [].concat(
+let routes = [
+  {
+    path: '/editor',
+    name: 'editor',
+    component: Editor
+  }
+].concat(
   entry,
   user,
   chatRoom
