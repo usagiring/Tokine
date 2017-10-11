@@ -33,26 +33,25 @@
             <option value="6">6</option>
             <option value="7">7</option>
           </select>
-          <span>color: </span>
-          <input type="text" id="spectrum" title="spectrum"/>
+          <!--<span>color: </span>-->
+          <!--<input type="text" id="spectrum" title="spectrum"/>-->
         </div>
       </div>
-    </div>
-    <div class="text-container">
-      <div contenteditable class="text-area">
-      </div>
+      <div class="text-container">
+        <div contenteditable class="text-area">
+        </div>
 
+      </div>
     </div>
 
   </div>
 </template>
 
 <script>
-  // 加色轮
-  //  import spectrum from '../../node_modules/spectrum-colorpicker/spectrum.js'
-  //  $('#spectrum').spectrum({
-  //    color: '#f00'
-  //  })
+//  // 加色轮
+//  import '../../node_modules/spectrum-colorpicker/spectrum.js'
+//
+//  console.log($('#spectrum'))
 
   export default {
     name: 'wysiwyg',
@@ -74,7 +73,6 @@
         this.showFont = !this.showFont
       },
       selectFont(e) {
-        console.log(e)
         if (e.target.title === 'font') {
           this.fontName(e.target.value)
         } else if (e.target.title === 'size') {
