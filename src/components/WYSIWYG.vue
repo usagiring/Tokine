@@ -2,21 +2,39 @@
   <div id="wysiwyg">
     <div class="container">
       <div class="icon-container">
-        <i class="el-icon-fa-bold" @click="bold" @mousedown="prevent"></i>
-        <i class="el-icon-fa-italic" @click="italic" @mousedown="prevent"></i>
-        <i class="el-icon-fa-strikethrough" @click="strikeThrough" @mousedown="prevent"></i>
-        <i class="el-icon-fa-underline" @click="underline" @mousedown="prevent"></i>
-        <i class="el-icon-fa-font" @click="showFontOptions"></i>
-
-        <i class="el-icon-fa-align-left"></i>
-        <i class="el-icon-fa-align-center"></i>
-        <i class="el-icon-fa-align-right"></i>
-        <i class="el-icon-fa-align-justify"></i>
-
-        <i class="el-icon-fa-list"></i>
+        <span :class="{active: boldIsActive}" @click="bold" @mousedown="prevent">
+                  <i class="el-icon-fa-bold"></i>
+        </span>
+        <span :class="{active: italicIsActive}" @click="italic" @mousedown="prevent">
+                  <i class="el-icon-fa-italic" @click="italic" @mousedown="prevent"></i>
+        </span>
+        <span :class="{active: strikeThroughIsActive}" @click="strikeThrough" @mousedown="prevent">
+                  <i class="el-icon-fa-strikethrough"></i>
+        </span>
+        <span :class="{active: underlineIsActive}" @click="underline" @mousedown="prevent">
+                  <i class="el-icon-fa-underline"></i>
+        </span>
+        <span :class="{active: showFont}" @click="showFontOptions">
+                  <i class="el-icon-fa-font"></i>
+        </span>
+        <span>
+                  <i class="el-icon-fa-align-left"></i>
+        </span>
+        <span>
+                  <i class="el-icon-fa-align-center"></i>
+        </span>
+        <span>
+                  <i class="el-icon-fa-align-right"></i>
+        </span>
+        <span>
+                  <i class="el-icon-fa-align-justify"></i>
+        </span>
+        <span>
+                  <i class="el-icon-fa-list"></i>
+        </span>
       </div>
       <div class="option-container">
-        <div v-if="showFont">
+        <div class='font-options' v-if="showFont">
           <span>font: </span>
           <select title="font" @change="selectFont">
             <option value="黑体">黑体</option>
@@ -38,7 +56,7 @@
         </div>
       </div>
       <div class="text-container">
-        <div contenteditable class="text-area">
+        <div contenteditable class="text-area" id="text-area" @mouseup="onSelection">
         </div>
 
       </div>
@@ -48,22 +66,37 @@
 </template>
 
 <script>
-//  // 加色轮
-//  import '../../node_modules/spectrum-colorpicker/spectrum.js'
-//
-//  console.log($('#spectrum'))
+  //  // 加色轮
+  //  import '../../node_modules/spectrum-colorpicker/spectrum.js'
+  //
+  //  console.log($('#spectrum'))
 
   export default {
     name: 'wysiwyg',
     data() {
       return {
-        html: '',
+        boldIsActive: false,
+        italicIsActive: false,
+        strikeThroughIsActive: false,
+        underlineIsActive: false,
+
         showFont: false
       }
     },
     computed: {},
     created() {
       document.execCommand('styleWithCSS', false, null)
+    },
+    mounted() {
+
+      // focus
+      let p = document.getElementById('text-area')
+      let s = window.getSelection()
+      let r = document.createRange();
+      r.setStart(p, 0);
+      r.setEnd(p, 0);
+      s.removeAllRanges();
+      s.addRange(r);
     },
     methods: {
       prevent(e) {
@@ -82,16 +115,51 @@
         }
       },
       bold() {
-        document.execCommand('bold', false, null)
+        let result = document.execCommand('bold', false, null)
+        if (result) {
+          this.boldIsActive = !this.boldIsActive
+        }
+      },
+      onSelection() {
+        let styles = ''
+        let parentNode = window.getSelection().getRangeAt(0).startContainer.parentNode
+        if (parentNode.id === 'text-area') {
+          this.boldIsActive = false
+          this.italicIsActive = false
+        } else {
+          fillActive(parentNode)
+          styles.includes('bold') ? this.boldIsActive = true : this.boldIsActive = false
+          styles.includes('italic') ? this.italicIsActive = true : this.italicIsActive = false
+        }
+
+        function fillActive(node) {
+          if (!node.getAttribute) return
+          let style = node.getAttribute('style')
+          if (style) {
+            styles += style
+          }
+          if (node.parentNode.id !== 'text-area') {
+            fillActive(node.parentNode)
+          }
+        }
       },
       italic() {
-        document.execCommand('italic', false, null)
+        let result = document.execCommand('italic', false, null)
+        if (result) {
+          this.italicIsActive = !this.italicIsActive
+        }
       },
       strikeThrough() {
-        document.execCommand('strikeThrough', false, null)
+        let result = document.execCommand('strikeThrough', false, null)
+        if (result) {
+          this.strikeThroughIsActive = !this.strikeThroughIsActive
+        }
       },
       underline() {
-        document.execCommand('underline', false, null)
+        let result = document.execCommand('underline', false, null)
+        if (result) {
+          this.underlineIsActive = !this.underlineIsActive
+        }
       },
       removeFormat() {
         document.execCommand('removeFormat', false, null)
@@ -151,24 +219,35 @@
 
   .container {
     border: 1px solid $black;
-    width: 500px;
+    min-width: 300px;
+    min-height: 200px;
   }
 
   .icon-container {
     border-bottom: 1px solid $extra-light-black;
-    > i {
-      margin: 5px;
+    > span {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+
+      padding: 5px;
       cursor: pointer;
+      text-align: center;
     }
   }
 
+  .active {
+    background: $gray;
+  }
+
   .option-container {
+    position: relative;
     height: 40px;
   }
 
   .text-container {
     position: relative;
-    height: 500px;
   }
 
   .text-area-container {
@@ -184,5 +263,13 @@
 
     font-size: 14px;
     border: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .font-options {
+    padding: 10px;
   }
 </style>
