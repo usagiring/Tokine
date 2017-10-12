@@ -2,24 +2,21 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../store/index'
 
-import Editor from '../components/WYSIWYG.vue'
 // routes
 import entry from './entry'
 import user from './user'
 import chatRoom from './chatRoom'
+import blog from './blog'
+import tools from './tools'
 
 Vue.use(Router)
 
-let routes = [
-  {
-    path: '/editor',
-    name: 'editor',
-    component: Editor
-  }
-].concat(
+let routes = [].concat(
   entry,
   user,
-  chatRoom
+  chatRoom,
+  blog,
+  tools
 )
 
 let router = new Router({

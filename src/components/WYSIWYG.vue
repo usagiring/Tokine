@@ -220,7 +220,6 @@
   .container {
     border: 1px solid $black;
     min-width: 300px;
-    min-height: 200px;
   }
 
   .icon-container {
@@ -248,6 +247,7 @@
 
   .text-container {
     position: relative;
+    min-height: 160px;
   }
 
   .text-area-container {
@@ -255,6 +255,8 @@
   }
 
   .text-area {
+    height: 100%;
+    width: 100%;
     position: absolute;
     top: 0;
     left: 10px;
