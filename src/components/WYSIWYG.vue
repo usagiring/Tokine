@@ -128,9 +128,10 @@
         let styles = ''
         let parentNode = window.getSelection().getRangeAt(0).startContainer.parentNode
         if (parentNode.id === 'text-area') {
-          noneStyle()
+          noneStyle(this)
         } else {
           fillActive(parentNode)
+          console.log(styles)
           styles.includes('bold') ? this.boldIsActive = true : this.boldIsActive = false
           styles.includes('italic') ? this.italicIsActive = true : this.italicIsActive = false
           styles.includes('left') ? this.justifyLeftIsActive = true : this.justifyLeftIsActive = false
@@ -150,11 +151,11 @@
           }
         }
 
-        function noneStyle() {
-          for (let key in this) {
-            if (this.hasOwnProperty(key)) {
+        function noneStyle(self) {
+          for (let key in self) {
+            if (self.hasOwnProperty(key)) {
               if (key.includes('IsActive')) {
-                this[key] = false
+                self[key] = false
               }
             } else {
               return
@@ -213,7 +214,6 @@
       },
       justifyRadio(selected) {
         let radios = ['justifyCenter', 'justifyFull', 'justifyLeft', 'justifyRight']
-        console.log(radios)
         radios = radios.filter(radio => radio !== selected)
         radios.forEach(radio => {
           radio += 'IsActive'
@@ -275,8 +275,15 @@
   }
 
   .container {
-    border: 1px solid $extra-light-black;
+    border: 1px solid $gray;
     min-width: 300px;
+    border-radius: 4px;
+    transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+    padding: 3px 10px;
+
+    &:hover {
+      border-color: $silver;
+    }
   }
 
   .icon-container {

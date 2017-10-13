@@ -1,8 +1,6 @@
 <template>
   <div id="new-blog">
     <div class="left-container">
-    </div>
-    <div class="mid-container">
       <div class="action-btn-group">
         <div class="action-button" @click="publish">
           <i class="el-icon-fa-send"></i>
@@ -14,6 +12,13 @@
           <i class="el-icon-fa-bookmark"></i>
         </div>
       </div>
+    </div>
+    <div class="mid-container">
+
+      <div class="title-container">
+        <el-input class="title-input" v-model="title" placeholder="请输入标题"></el-input>
+      </div>
+
       <div class="editor-wrapper">
         <editor v-on:html="getHtml"></editor>
       </div>
@@ -29,7 +34,9 @@
   export default {
     name: 'new-blog',
     data() {
-      return {}
+      return {
+        title: ''
+      }
     },
     created() {
     },
@@ -58,7 +65,7 @@
 <style scoped lang="scss">
   @import '../style/common/variables';
 
-  #new-blog{
+  #new-blog {
   }
 
   .action-btn-group {
@@ -71,7 +78,7 @@
 
   .editor-wrapper {
     position: relative;
-    top: 0;
+    top: 40px;
     left: 5%;
     width: 90%;
   }
@@ -85,6 +92,16 @@
     &:hover {
       background: $light-blue;
     }
+  }
+
+  .title-container {
+    position: relative;
+    top: 20px;
+  }
+
+  .title-input {
+    width: 90%;
+    left: 5%;
   }
 
 </style>
