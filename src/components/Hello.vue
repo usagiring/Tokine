@@ -3,6 +3,7 @@
     <h1>{{ msg }}</h1>
     <router-link to="/chat-room">Go to chat-room</router-link>
     <router-link :to="toProfile">Go to profile</router-link>
+    <router-link to="/blogs">Go to blogs</router-link>
   </div>
 </template>
 

@@ -3,7 +3,7 @@
     <div>
       <div v-for="blog in blogs">
         <hr>
-        <span @click="blogDetail(blog)">{{blog.title}}</span>
+        <router-link :to="blogDetail(blog)">{{blog.title}}</router-link>
       </div>
     </div>
   </div>
@@ -29,7 +29,7 @@
     computed: {},
     methods: {
       blogDetail(blog) {
-        this.$router.push(`/blog/${blog._id}`)
+        return `/blog/${blog._id}`
       }
     }
   }
