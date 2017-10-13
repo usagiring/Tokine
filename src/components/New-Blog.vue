@@ -44,6 +44,7 @@
     methods: {
       publish() {
         let data = {
+          title: this.title,
           content: this.$store.state.blog.content
         }
         let url = '/blog'
@@ -74,13 +75,13 @@
 
   .mid-container {
     position: relative;
+    margin: 0 auto;
+    width: 90%;
   }
 
   .editor-wrapper {
     position: relative;
     top: 40px;
-    left: 5%;
-    width: 90%;
   }
 
   .action-button {
@@ -100,8 +101,7 @@
   }
 
   .title-input {
-    width: 90%;
-    left: 5%;
+
   }
 
 </style>
