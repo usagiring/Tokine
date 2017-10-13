@@ -31,6 +31,8 @@
   }
 
   .app-body {
+    position: relative;
+    /*display: flex;*/
     /*height: calc(100% - 40px);*/
   }
 </style>

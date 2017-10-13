@@ -56,9 +56,8 @@
         </div>
       </div>
       <div class="text-container">
-        <div contenteditable class="text-area" id="text-area" @mouseup="onSelection">
+        <div contenteditable class="text-area" id="text-area" @mouseup="onSelection" @input="autoSave">
         </div>
-
       </div>
     </div>
 
@@ -113,6 +112,9 @@
         } else if (e.target.title === 'color') {
           this.foreColor(e.target.value)
         }
+      },
+      autoSave(e) {
+        this.$store.commit('setContent', e.target.innerHTML)
       },
       bold() {
         let result = document.execCommand('bold', false, null)
@@ -218,12 +220,13 @@
   @import '../style/common/variables';
 
   .container {
-    border: 1px solid $black;
+    border: 1px solid $extra-light-black;
     min-width: 300px;
   }
 
   .icon-container {
-    border-bottom: 1px solid $extra-light-black;
+    width: 100%;
+    border-bottom: 1px solid $gray;
     > span {
       display: inline-block;
       width: 20px;
@@ -243,11 +246,11 @@
   .option-container {
     position: relative;
     height: 40px;
+    border-bottom: 1px solid $gray;
   }
 
   .text-container {
-    position: relative;
-    min-height: 160px;
+    background: $light-gray;
   }
 
   .text-area-container {
@@ -255,9 +258,10 @@
   }
 
   .text-area {
-    height: 100%;
-    width: 100%;
-    position: absolute;
+    width: 90%;
+    background: $white;
+    min-height: 300px;
+    margin: 0 auto;
     top: 0;
     left: 10px;
     right: 10px;
