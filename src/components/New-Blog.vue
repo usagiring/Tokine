@@ -58,9 +58,11 @@
 <style scoped lang="scss">
   @import '../style/common/variables';
 
+  #new-blog{
+  }
+
   .action-btn-group {
     position: fixed;
-
   }
 
   .mid-container {
@@ -75,7 +77,8 @@
   }
 
   .action-button {
-    background: $light-gray;
+    background: $extra-light-black;
+    color: $white;
     font-size: 20px;
     padding: 20px;
 

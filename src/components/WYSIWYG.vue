@@ -2,61 +2,55 @@
   <div id="wysiwyg">
     <div class="container">
       <div class="icon-container">
-        <span :class="{active: boldIsActive}" @click="bold" @mousedown="prevent">
-                  <i class="el-icon-fa-bold"></i>
-        </span>
-        <span :class="{active: italicIsActive}" @click="italic" @mousedown="prevent">
-                  <i class="el-icon-fa-italic" @click="italic" @mousedown="prevent"></i>
-        </span>
-        <span :class="{active: strikeThroughIsActive}" @click="strikeThrough" @mousedown="prevent">
-                  <i class="el-icon-fa-strikethrough"></i>
-        </span>
-        <span :class="{active: underlineIsActive}" @click="underline" @mousedown="prevent">
-                  <i class="el-icon-fa-underline"></i>
-        </span>
-        <span :class="{active: showFont}" @click="showFontOptions">
-                  <i class="el-icon-fa-font"></i>
-        </span>
-        <span>
-                  <i class="el-icon-fa-align-left"></i>
-        </span>
-        <span>
-                  <i class="el-icon-fa-align-center"></i>
-        </span>
-        <span>
-                  <i class="el-icon-fa-align-right"></i>
-        </span>
-        <span>
-                  <i class="el-icon-fa-align-justify"></i>
-        </span>
-        <span>
-                  <i class="el-icon-fa-list"></i>
-        </span>
-      </div>
-      <div class="option-container">
-        <div class='font-options' v-if="showFont">
-          <span>font: </span>
-          <select title="font" @change="selectFont">
-            <option value="黑体">黑体</option>
-            <option value="微软雅黑">微软雅黑</option>
-            <option value="Arial">Arial</option>
-          </select>
-          <span>size: </span>
-          <select title="size" @change="selectFont">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-          </select>
-          <!--<span>color: </span>-->
-          <!--<input type="text" id="spectrum" title="spectrum"/>-->
+        <div class="icon-group">
+          <span :class="{active: boldIsActive}" @click="bold" @mousedown="prevent"><i
+            class="el-icon-fa-bold"></i></span>
+          <span :class="{active: italicIsActive}" @click="italic" @mousedown="prevent"><i class="el-icon-fa-italic"
+                                                                                          @click="italic"
+                                                                                          @mousedown="prevent"></i></span>
+          <span :class="{active: strikeThroughIsActive}" @click="strikeThrough" @mousedown="prevent"><i
+            class="el-icon-fa-strikethrough"></i></span>
+          <span :class="{active: underlineIsActive}" @click="underline" @mousedown="prevent"><i
+            class="el-icon-fa-underline"></i></span>
+          <span class="font-btn-wrapper" :class="{active: showFont}" @click="showFontOptions">
+            <i class="el-icon-fa-font"></i>
+            <span v-if="showFont" class="font-options">
+             <span>font: </span>
+                <select title="font" @change="selectFont">
+                  <option value="黑体">黑体</option>
+                  <option value="微软雅黑">微软雅黑</option>
+                  <option value="Arial">Arial</option>
+                </select>
+                <span>size: </span>
+                <select title="size" @change="selectFont">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                </select>
+              <!--<span>color: </span>-->
+              <!--<input type="text" id="spectrum" title="spectrum"/>-->
+            </span>
+          </span>
+          <span :class="{active: justifyLeftIsActive}" @click="justifyLeft" @mousedown="prevent"><i
+            class="el-icon-fa-align-left"></i></span>
+          <span :class="{active: justifyCenterIsActive}" @click="justifyCenter" @mousedown="prevent"><i
+            class="el-icon-fa-align-center"></i></span>
+          <span :class="{active: justifyRightIsActive}" @click="justifyRight" @mousedown="prevent"><i
+            class="el-icon-fa-align-right"></i></span>
+          <span :class="{active: justifyFullIsActive}" @click="justifyFull" @mousedown="prevent"><i
+            class="el-icon-fa-align-justify"></i></span>
+          <!--<span :class="{active: insertOrderedListIsActive}" @click="insertUnorderedList" @mousedown="prevent"><i class="el-icon-fa-list"></i></span>-->
         </div>
       </div>
+      <div class="option-container">
+      </div>
       <div class="text-container">
-        <div contenteditable class="text-area" id="text-area" @mouseup="onSelection" @input="autoSave">
+        <div contenteditable class="text-area" id="text-area" @mouseup="onSelection" @input="autoSave"
+             placeholder="Enter text here..." data-placeholder="Enter text here...">
         </div>
       </div>
     </div>
@@ -78,6 +72,11 @@
         italicIsActive: false,
         strikeThroughIsActive: false,
         underlineIsActive: false,
+        justifyLeftIsActive: false,
+        justifyCenterIsActive: false,
+        justifyRightIsActive: false,
+        justifyFullIsActive: false,
+        insertOrderedListIsActive: false,
 
         showFont: false
       }
@@ -101,8 +100,11 @@
       prevent(e) {
         e.preventDefault()
       },
-      showFontOptions() {
-        this.showFont = !this.showFont
+      showFontOptions(e) {
+        // 阻止子元素 点击事件
+        if (e.target.className.includes('font-btn-wrapper') || e.target.className.includes('el-icon-fa-font')) {
+          this.showFont = !this.showFont
+        }
       },
       selectFont(e) {
         if (e.target.title === 'font') {
@@ -126,12 +128,15 @@
         let styles = ''
         let parentNode = window.getSelection().getRangeAt(0).startContainer.parentNode
         if (parentNode.id === 'text-area') {
-          this.boldIsActive = false
-          this.italicIsActive = false
+          noneStyle()
         } else {
           fillActive(parentNode)
           styles.includes('bold') ? this.boldIsActive = true : this.boldIsActive = false
           styles.includes('italic') ? this.italicIsActive = true : this.italicIsActive = false
+          styles.includes('left') ? this.justifyLeftIsActive = true : this.justifyLeftIsActive = false
+          styles.includes('center') ? this.justifyCenterIsActive = true : this.justifyCenterIsActive = false
+          styles.includes('right') ? this.justifyRightIsActive = true : this.justifyRightIsActive = false
+          styles.includes('justify') ? this.justifyFullIsActive = true : this.justifyFullIsActive = false
         }
 
         function fillActive(node) {
@@ -142,6 +147,18 @@
           }
           if (node.parentNode.id !== 'text-area') {
             fillActive(node.parentNode)
+          }
+        }
+
+        function noneStyle() {
+          for (let key in this) {
+            if (this.hasOwnProperty(key)) {
+              if (key.includes('IsActive')) {
+                this[key] = false
+              }
+            } else {
+              return
+            }
           }
         }
       },
@@ -185,26 +202,60 @@
         // 在插入点或者选中文字部分修改字体大小. 需要提供一个HTML字体尺寸 (1-7) 作为参数。
         document.execCommand('fontSize', false, size)
       },
-      formatBlock() {
-
+      insertOrderedList() {
+        document.execCommand('insertOrderedList', false)
+      },
+      insertUnorderedList() {
+        document.execCommand('insertUnorderedList', false)
+      },
+      formatBlock(param) {
+        document.execCommand('formatBlock', false, param)
+      },
+      justifyRadio(selected) {
+        let radios = ['justifyCenter', 'justifyFull', 'justifyLeft', 'justifyRight']
+        console.log(radios)
+        radios = radios.filter(radio => radio !== selected)
+        radios.forEach(radio => {
+          radio += 'IsActive'
+          this[radio] = false
+        })
       },
       justifyCenter() {
-
+        let result = document.execCommand('justifyCenter', false)
+        if (result) {
+          this.justifyCenterIsActive = true
+          this.justifyRadio('justifyCenter')
+        }
       },
       justifyFull() {
-
+        let result = document.execCommand('justifyFull', false)
+        if (result) {
+          this.justifyFullIsActive = true
+          this.justifyRadio('justifyFull')
+        }
       },
       justifyLeft() {
-
+        let result = document.execCommand('justifyLeft', false)
+        if (result) {
+          this.justifyLeftIsActive = true
+          this.justifyRadio('justifyLeft')
+        }
       },
       justifyRight() {
-
+        let result = document.execCommand('justifyRight', false)
+        if (result) {
+          this.justifyRightIsActive = true
+          this.justifyRadio('justifyRight')
+        }
+      },
+      outdent() {
+        document.execCommand('outdent', false)
       },
       redo() {
-
+        document.execCommand('redo', false)
       },
       undo() {
-
+        document.execCommand('undo', false)
       },
       unlink() {
 
@@ -219,6 +270,10 @@
 <style scoped lang="scss">
   @import '../style/common/variables';
 
+  #wysiwyg {
+    background: $white;
+  }
+
   .container {
     border: 1px solid $extra-light-black;
     min-width: 300px;
@@ -226,14 +281,18 @@
 
   .icon-container {
     width: 100%;
-    border-bottom: 1px solid $gray;
+    height: 70px;
+  }
+
+  .icon-group {
+    position: fixed;
     > span {
       display: inline-block;
       width: 20px;
       height: 20px;
       line-height: 20px;
 
-      padding: 5px;
+      padding: 10px;
       cursor: pointer;
       text-align: center;
     }
@@ -244,13 +303,9 @@
   }
 
   .option-container {
-    position: relative;
-    height: 40px;
-    border-bottom: 1px solid $gray;
   }
 
   .text-container {
-    background: $light-gray;
   }
 
   .text-area-container {
@@ -258,10 +313,7 @@
   }
 
   .text-area {
-    width: 90%;
-    background: $white;
     min-height: 300px;
-    margin: 0 auto;
     top: 0;
     left: 10px;
     right: 10px;
@@ -275,7 +327,28 @@
     }
   }
 
+  .font-btn-wrapper {
+    position: relative;
+  }
+
   .font-options {
+    cursor: default;
+    position: absolute;
+    display: block;
+    top: 40px;
+    left: 0;
+    width: 300px;
     padding: 10px;
+    background: rgba($light-gray, .5);
+
+    > select {
+      width: 100px;
+    }
+  }
+
+  [contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    color: $gray;
+    display: block; /* For Firefox */
   }
 </style>
