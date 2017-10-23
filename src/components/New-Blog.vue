@@ -24,6 +24,24 @@
       </div>
 
     </div>
+
+    <el-dialog
+      title="congratulation"
+      :visible.sync="showSuccessDialog"
+      size="tiny">
+      <div class="icon-container">
+        <i class="el-icon-fa-check"></i>
+      </div>
+      <div class="info-container">
+        <p>publish success</p>
+        <p>go to view?</p>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showSuccessDialog = false">cancel</el-button>
+        <el-button type="primary" @click="goToViewBlog">yes</el-button>
+      </span>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -35,7 +53,9 @@
     name: 'new-blog',
     data() {
       return {
-        title: ''
+        title: '',
+        showSuccessDialog: false,
+        id: ''
       }
     },
     created() {
@@ -43,6 +63,10 @@
     computed: {},
     methods: {
       publish() {
+        if (!this.title) {
+          this.$message.error('please input title')
+          return
+        }
         let data = {
           title: this.title,
           content: this.$store.state.blog.content
@@ -51,10 +75,15 @@
         post(url, data)
           .then(data => {
             console.log(data)
+            this.id = data._id
+            this.showSuccessDialog = true
           })
       },
       getHtml(data) {
         console.log(data)
+      },
+      goToViewBlog() {
+        this.$router.push(`/blog/${this.id}`)
       }
     },
     components: {
@@ -104,4 +133,16 @@
 
   }
 
+  .icon-container {
+    display: inline-block;
+
+    > i {
+      font-size: 36px !important;
+      color: green;
+    }
+  }
+
+  .info-container {
+    display: inline-block;
+  }
 </style>

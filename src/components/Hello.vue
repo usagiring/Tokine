@@ -1,9 +1,18 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <router-link to="/chat-room">Go to chat-room</router-link>
-    <router-link :to="toProfile">Go to profile</router-link>
-    <router-link to="/blogs">Go to blogs</router-link>
+    <el-button type="text">
+      <router-link to="/chat-room">Go to chat-room</router-link>
+    </el-button>
+    <el-button type="text">
+      <router-link :to="toProfile">profile</router-link>
+    </el-button>
+    <el-button type="text">
+      <router-link to="/blogs">view blog</router-link>
+    </el-button>
+    <el-button type="text">
+      <router-link to="/blog-new">write blog</router-link>
+    </el-button>
   </div>
 </template>
 
@@ -11,8 +20,7 @@
   export default {
     name: 'hello',
     data() {
-      return {
-      }
+      return {}
     },
     computed: {
       toProfile() {

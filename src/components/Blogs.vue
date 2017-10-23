@@ -1,9 +1,11 @@
 <template>
   <div id="blogs">
-    <div>
+    <div class="blog-container">
       <div v-for="blog in blogs">
         <hr>
-        <router-link :to="blogDetail(blog)">{{blog.title}}</router-link>
+        <router-link :to="blogDetail(blog)">
+          <span class="title">{{blog.title}}</span>
+        </router-link>
       </div>
     </div>
   </div>
@@ -35,6 +37,16 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+  @import '../style/common/variables';
+  .blog-container {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 16px;
+    font-weight: bold;
+  }
 
 </style>
