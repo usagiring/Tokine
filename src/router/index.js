@@ -9,9 +9,16 @@ import chatRoom from './chatRoom'
 import blog from './blog'
 import tools from './tools'
 
+import Editor from '../components/markdown.vue'
+
 Vue.use(Router)
 
-let routes = [].concat(
+let routes = [
+  {
+    path: '/markdown-editor',
+    component: Editor
+  }
+].concat(
   entry,
   user,
   chatRoom,

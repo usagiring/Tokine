@@ -8,14 +8,14 @@
           <span :class="{active: italicIsActive}" @click="italic" @mousedown="prevent"><i class="el-icon-fa-italic"
                                                                                           @click="italic"
                                                                                           @mousedown="prevent"></i></span>
-          <span :class="{active: strikeThroughIsActive}" @click="strikeThrough" @mousedown="prevent"><i
-            class="el-icon-fa-strikethrough"></i></span>
           <span :class="{active: underlineIsActive}" @click="underline" @mousedown="prevent"><i
             class="el-icon-fa-underline"></i></span>
+          <span :class="{active: strikeThroughIsActive}" @click="strikeThrough" @mousedown="prevent"><i
+            class="el-icon-fa-strikethrough"></i></span>
           <span class="font-btn-wrapper" :class="{active: showFont}" @click="showFontOptions">
             <i class="el-icon-fa-font"></i>
             <span v-if="showFont" class="font-options">
-             <span>font: </span>
+                <span>font: </span>
                 <select title="font" @change="selectFont">
                   <option value="黑体">黑体</option>
                   <option value="微软雅黑">微软雅黑</option>
@@ -31,8 +31,8 @@
                   <option value="6">6</option>
                   <option value="7">7</option>
                 </select>
-              <!--<span>color: </span>-->
-              <!--<input type="text" id="spectrum" title="spectrum"/>-->
+              <span>color: </span>
+              <input type="color" id="picker" title="picker" @change="foreColor"/>
             </span>
           </span>
           <span :class="{active: justifyLeftIsActive}" @click="justifyLeft" @mousedown="prevent"><i
@@ -59,15 +59,13 @@
 </template>
 
 <script>
-  //  // 加色轮
-  //  import '../../node_modules/spectrum-colorpicker/spectrum.js'
-  //
-  //  console.log($('#spectrum'))
 
   export default {
     name: 'wysiwyg',
     data() {
       return {
+        anchorNode: null,
+        anchorOffset: 0,
         boldIsActive: false,
         italicIsActive: false,
         strikeThroughIsActive: false,
@@ -105,6 +103,18 @@
         if (e.target.className.includes('font-btn-wrapper') || e.target.className.includes('el-icon-fa-font')) {
           this.showFont = !this.showFont
         }
+      },
+      focus(e) {
+        console.log(e)
+        e.returnValue = false
+        let s = window.getSelection()
+        let r = document.createRange();
+        this.anchorNode = s.anchorNode
+        this.anchorOffset = s.anchorOffset
+        r.setStart(s.anchorNode, s.anchorOffset);
+        r.setEnd(s.anchorNode, s.anchorOffset);
+        s.removeAllRanges();
+        s.addRange(r);
       },
       selectFont(e) {
         if (e.target.title === 'font') {
@@ -190,8 +200,8 @@
       superscript() {
         // 上角标
       },
-      foreColor(color) {
-        document.execCommand('foreColor', false, color)
+      foreColor(e) {
+        document.execCommand('foreColor', false, e.target.value)
       },
       fontName(font) {
         document.execCommand('fontName', false, font)
