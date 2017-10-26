@@ -3,13 +3,13 @@
     <div class="left-container">
       <div class="action-btn-group">
         <div class="action-button" @click="publish">
-          <i class="el-icon-fa-send"></i>
+          <i class="fa fa-send"></i>
         </div>
         <div class="action-button">
-          <i class="el-icon-fa-eye"></i>
+          <i class="fa fa-eye"></i>
         </div>
         <div class="action-button">
-          <i class="el-icon-fa-bookmark"></i>
+          <i class="fa fa-bookmark"></i>
         </div>
       </div>
     </div>
@@ -27,10 +27,9 @@
 
     <el-dialog
       title="congratulation"
-      :visible.sync="showSuccessDialog"
-      size="tiny">
+      :visible.sync="showSuccessDialog">
       <div class="icon-container">
-        <i class="el-icon-fa-check"></i>
+        <i class="fa fa-check"></i>
       </div>
       <div class="info-container">
         <p>publish success</p>

@@ -1,20 +1,32 @@
 <template>
   <div id="wysiwyg">
     <div class="container">
-      <div class="icon-container">
+      <div class="action-container">
         <div class="icon-group">
-          <span :class="{active: boldIsActive}" @click="bold" @mousedown="prevent"><i
-            class="el-icon-fa-bold"></i></span>
-          <span :class="{active: italicIsActive}" @click="italic" @mousedown="prevent"><i class="el-icon-fa-italic"
-                                                                                          @click="italic"
-                                                                                          @mousedown="prevent"></i></span>
-          <span :class="{active: underlineIsActive}" @click="underline" @mousedown="prevent"><i
-            class="el-icon-fa-underline"></i></span>
-          <span :class="{active: strikeThroughIsActive}" @click="strikeThrough" @mousedown="prevent"><i
-            class="el-icon-fa-strikethrough"></i></span>
-          <span class="font-btn-wrapper" :class="{active: showFont}" @click="showFontOptions">
-            <i class="el-icon-fa-font"></i>
-            <span v-if="showFont" class="font-options">
+          <div class="icon-container">
+             <span class="font-btn-wrapper" :class="{active: boldIsActive}" @click="bold" @mousedown="prevent"><i
+               class="fa fa-bold"></i></span>
+          </div>
+          <div class="icon-container">
+             <span class="font-btn-wrapper" :class="{active: italicIsActive}" @click="italic" @mousedown="prevent"><i
+               class="fa fa-italic"
+               @click="italic"
+               @mousedown="prevent"></i></span>
+          </div>
+          <div class="icon-container">
+            <span class="font-btn-wrapper" :class="{active: underlineIsActive}" @click="underline" @mousedown="prevent"><i
+              class="fa fa-underline"></i></span>
+          </div>
+          <div class="icon-container">
+            <span class="font-btn-wrapper" :class="{active: strikeThroughIsActive}" @click="strikeThrough"
+                  @mousedown="prevent"><i
+              class="fa fa-strikethrough"></i></span>
+          </div>
+          <div class="icon-container">
+            <span class="font-btn-wrapper" :class="{active: showFont}" @click="showFontOptions">
+              <i class="fa fa-font"></i>
+            </span>
+            <span v-show="showFont" class="font-options">
                 <span>font: </span>
                 <select title="font" @change="selectFont">
                   <option value="黑体">黑体</option>
@@ -32,21 +44,31 @@
                   <option value="7">7</option>
                 </select>
               <span>color: </span>
-              <input type="color" id="picker" title="picker" @change="foreColor"/>
-            </span>
-          </span>
-          <span :class="{active: justifyLeftIsActive}" @click="justifyLeft" @mousedown="prevent"><i
-            class="el-icon-fa-align-left"></i></span>
-          <span :class="{active: justifyCenterIsActive}" @click="justifyCenter" @mousedown="prevent"><i
-            class="el-icon-fa-align-center"></i></span>
-          <span :class="{active: justifyRightIsActive}" @click="justifyRight" @mousedown="prevent"><i
-            class="el-icon-fa-align-right"></i></span>
-          <span :class="{active: justifyFullIsActive}" @click="justifyFull" @mousedown="prevent"><i
-            class="el-icon-fa-align-justify"></i></span>
+              <input type="text" class="picker" id="picker" title="picker"/>
+        </span>
+          </div>
+          <div class="icon-container">
+           <span class="font-btn-wrapper" :class="{active: justifyLeftIsActive}" @click="justifyLeft"
+                 @mousedown="prevent"><i
+             class="fa fa-align-left"></i></span>
+          </div>
+          <div class="icon-container">
+           <span class="font-btn-wrapper" :class="{active: justifyCenterIsActive}" @click="justifyCenter"
+                 @mousedown="prevent"><i
+             class="fa fa-align-center"></i></span>
+          </div>
+          <div class="icon-container">
+            <span class="font-btn-wrapper" :class="{active: justifyRightIsActive}" @click="justifyRight"
+                  @mousedown="prevent"><i
+              class="fa fa-align-right"></i></span>
+          </div>
+          <div class="icon-container">
+           <span class="font-btn-wrapper" :class="{active: justifyFullIsActive}" @click="justifyFull"
+                 @mousedown="prevent"><i
+             class="fa fa-align-justify"></i></span>
+          </div>
           <!--<span :class="{active: insertOrderedListIsActive}" @click="insertUnorderedList" @mousedown="prevent"><i class="el-icon-fa-list"></i></span>-->
         </div>
-      </div>
-      <div class="option-container">
       </div>
       <div class="text-container">
         <div contenteditable class="text-area" id="text-area" @mouseup="onSelection" @input="autoSave"
@@ -59,6 +81,9 @@
 </template>
 
 <script>
+
+  import 'spectrum-colorpicker/spectrum.js'
+
 
   export default {
     name: 'wysiwyg',
@@ -84,7 +109,12 @@
       document.execCommand('styleWithCSS', false, null)
     },
     mounted() {
-
+      $("#picker").spectrum({
+        color: '#f00',
+        change: function (color) {
+          console.log(color)
+        }
+      });
       // focus
       let p = document.getElementById('text-area')
       let s = window.getSelection()
@@ -100,9 +130,8 @@
       },
       showFontOptions(e) {
         // 阻止子元素 点击事件
-        if (e.target.className.includes('font-btn-wrapper') || e.target.className.includes('el-icon-fa-font')) {
-          this.showFont = !this.showFont
-        }
+        this.showFont = !this.showFont
+
       },
       focus(e) {
         console.log(e)
@@ -297,29 +326,27 @@
   }
 
   .icon-container {
+    vertical-align: top;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+
+    &:hover {
+      background: $extra-light-gray;
+    }
+  }
+
+  .action-container {
     width: 100%;
     height: 70px;
   }
 
   .icon-group {
     position: fixed;
-    > span {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      line-height: 20px;
-
-      padding: 10px;
-      cursor: pointer;
-      text-align: center;
-    }
   }
 
   .active {
     background: $gray;
-  }
-
-  .option-container {
   }
 
   .text-container {
@@ -345,18 +372,19 @@
   }
 
   .font-btn-wrapper {
-    position: relative;
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
   }
 
   .font-options {
-    cursor: default;
-    position: absolute;
     display: block;
-    top: 40px;
-    left: 0;
-    width: 300px;
+    width: 400px;
     padding: 10px;
-    background: rgba($light-gray, .5);
+    background: $extra-light-gray;
 
     > select {
       width: 100px;
