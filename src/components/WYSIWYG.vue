@@ -43,8 +43,7 @@
                   <option value="6">6</option>
                   <option value="7">7</option>
                 </select>
-              <span>color: </span>
-              <input type="text" class="picker" id="picker" title="picker"/>
+                <el-color-picker v-model="color" show-alpha></el-color-picker>
         </span>
           </div>
           <div class="icon-container">
@@ -81,14 +80,11 @@
 </template>
 
 <script>
-
-  import 'spectrum-colorpicker/spectrum.js'
-
-
   export default {
     name: 'wysiwyg',
     data() {
       return {
+        color: null,
         anchorNode: null,
         anchorOffset: 0,
         boldIsActive: false,
@@ -109,12 +105,6 @@
       document.execCommand('styleWithCSS', false, null)
     },
     mounted() {
-      $("#picker").spectrum({
-        color: '#f00',
-        change: function (color) {
-          console.log(color)
-        }
-      });
       // focus
       let p = document.getElementById('text-area')
       let s = window.getSelection()
