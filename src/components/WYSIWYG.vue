@@ -84,8 +84,21 @@
                  @mousedown="prevent"><i
              class="fa fa-align-justify"></i></span>
           </div>
-          <!--<span :class="{active: insertOrderedListIsActive}" @click="insertUnorderedList" @mousedown="prevent"><i class="el-icon-fa-list"></i></span>-->
-          <!--fa fa-paint-brush-->
+          <div class="icon-container">
+           <span class="font-btn-wrapper" @click="indent"
+                 @mousedown="prevent"><i
+             class="fa fa-indent"></i></span>
+          </div>
+          <div class="icon-container">
+           <span class="font-btn-wrapper" @click="outdent"
+                 @mousedown="prevent"><i
+             class="fa fa-outdent"></i></span>
+          </div>
+          <div class="icon-container">
+           <span class="font-btn-wrapper" @click="removeFormat"
+                 @mousedown="prevent"><i
+             class="fa fa-remove"></i></span>
+          </div>
         </div>
       </div>
       <div class="text-container">
@@ -157,12 +170,6 @@
       autoSave(e) {
         this.$store.commit('setContent', e.target.innerHTML)
       },
-      bold() {
-        let result = document.execCommand('bold', false, null)
-        if (result) {
-          this.boldIsActive = !this.boldIsActive
-        }
-      },
       onSelection() {
         let styles = ''
         let parentNode = window.getSelection().getRangeAt(0).startContainer.parentNode
@@ -202,6 +209,13 @@
           }
         }
       },
+
+      bold() {
+        let result = document.execCommand('bold', false, null)
+        if (result) {
+          this.boldIsActive = !this.boldIsActive
+        }
+      },
       italic() {
         let result = document.execCommand('italic', false, null)
         if (result) {
@@ -228,9 +242,6 @@
       },
       superscript() {
         // 上角标
-      },
-      test() {
-        console.log('test')
       },
       foreColor(color) {
         let result = document.execCommand('foreColor', false, color)
@@ -294,7 +305,10 @@
         }
       },
       outdent() {
-        document.execCommand('outdent', false)
+        let result = document.execCommand('outdent', false)
+      },
+      indent() {
+        let result = document.execCommand('indent', false)
       },
       redo() {
         document.execCommand('redo', false)
@@ -302,11 +316,14 @@
       undo() {
         document.execCommand('undo', false)
       },
-      unlink() {
-
+      insertImage(url) {
+        document.execCommand('insertImage', false, url)
       },
-      createLink() {
-
+      unlink() {
+        document.execCommand('unlink', false)
+      },
+      createLink(url) {
+        document.execCommand('createLink', false, url)
       }
     }
   }
@@ -387,7 +404,9 @@
   }
 
   .font-options {
-    width: 80px;
+    width: 100px;
+    padding: 10px;
+    text-align: center;
     background: $extra-light-gray;
 
     cursor: pointer;
@@ -403,7 +422,8 @@
   }
 
   .color-block {
-    width: 50px;
+    display: inline-block;
+    width: 30px;
     height: 30px;
   }
 
