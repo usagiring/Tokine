@@ -22,29 +22,47 @@
                   @mousedown="prevent"><i
               class="fa fa-strikethrough"></i></span>
           </div>
-          <div class="icon-container">
-            <span class="font-btn-wrapper" :class="{active: showFont}" @click="showFontOptions">
+          <div class="icon-container" @mouseover="showFontOptions(true)" @mouseout="showFontOptions(false)">
+            <span class="font-btn-wrapper">
               <i class="fa fa-font"></i>
             </span>
-            <span v-show="showFont" class="font-options">
-                <span>font: </span>
-                <select title="font" @change="selectFont">
-                  <option value="黑体">黑体</option>
-                  <option value="微软雅黑">微软雅黑</option>
-                  <option value="Arial">Arial</option>
-                </select>
-                <span>size: </span>
-                <select title="size" @change="selectFont">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                </select>
-                <el-color-picker v-model="color" show-alpha></el-color-picker>
-        </span>
+            <div v-show="showFont" class="font-options">
+              <div @mousedown="prevent" @click="fontName('黑体')">黑体</div>
+              <div @mousedown="prevent" @click="fontName('微软雅黑')">微软雅黑</div>
+              <div @mousedown="prevent" @click="fontName('Arial')">Arial</div>
+            </div>
+          </div>
+          <div class="icon-container" @mouseover="showHeaderOptions(true)" @mouseout="showHeaderOptions(false)">
+            <span class="font-btn-wrapper">
+              <i class="fa fa-header"></i>
+            </span>
+            <div v-show="showHeader" class="font-options">
+              <div @mousedown="prevent" @click="fontSize('7')">h1</div>
+              <div @mousedown="prevent" @click="fontSize('6')">h2</div>
+              <div @mousedown="prevent" @click="fontSize('5')">h3</div>
+              <div @mousedown="prevent" @click="fontSize('4')">h4</div>
+              <div @mousedown="prevent" @click="fontSize('3')">h5</div>
+              <div @mousedown="prevent" @click="fontSize('2')">h6</div>
+            </div>
+          </div>
+          <div class="icon-container" @mouseover="showColorOptions(true)" @mouseout="showColorOptions(false)">
+            <span class="font-btn-wrapper">
+              <i class="fa fa-diamond"></i>
+            </span>
+            <div v-show="showColor" class="font-options" @mousedown="prevent">
+              <div class="color-block" style="background: white" @click="foreColor('white')"></div>
+              <div class="color-block" style="background: black" @click="foreColor('black')"></div>
+              <div class="color-block" style="background: gray" @click="foreColor('gray')"></div>
+              <div class="color-block" style="background: gold" @click="foreColor('gold')"></div>
+              <div class="color-block" style="background: salmon" @click="foreColor('salmon')"></div>
+              <div class="color-block" style="background: green" @click="foreColor('green')"></div>
+              <div class="color-block" style="background: saddlebrown" @click="foreColor('saddlebrown')"></div>
+              <div class="color-block" style="background: sandybrown" @click="foreColor('sandybrown')"></div>
+              <div class="color-block" style="background: blueviolet" @click="foreColor('blueviolet')"></div>
+              <div class="color-block" style="background: bisque" @click="foreColor('bisque')"></div>
+              <div class="color-block" style="background: brown" @click="foreColor('brown')"></div>
+              <div class="color-block" style="background: royalblue" @click="foreColor('royalblue')"></div>
+            </div>
           </div>
           <div class="icon-container">
            <span class="font-btn-wrapper" :class="{active: justifyLeftIsActive}" @click="justifyLeft"
@@ -67,6 +85,7 @@
              class="fa fa-align-justify"></i></span>
           </div>
           <!--<span :class="{active: insertOrderedListIsActive}" @click="insertUnorderedList" @mousedown="prevent"><i class="el-icon-fa-list"></i></span>-->
+          <!--fa fa-paint-brush-->
         </div>
       </div>
       <div class="text-container">
@@ -84,9 +103,6 @@
     name: 'wysiwyg',
     data() {
       return {
-        color: null,
-        anchorNode: null,
-        anchorOffset: 0,
         boldIsActive: false,
         italicIsActive: false,
         strikeThroughIsActive: false,
@@ -97,7 +113,9 @@
         justifyFullIsActive: false,
         insertOrderedListIsActive: false,
 
-        showFont: false
+        showFont: false,
+        showHeader: false,
+        showColor: false
       }
     },
     computed: {},
@@ -118,22 +136,14 @@
       prevent(e) {
         e.preventDefault()
       },
-      showFontOptions(e) {
-        // 阻止子元素 点击事件
-        this.showFont = !this.showFont
-
+      showFontOptions(bool) {
+        this.showFont = bool
       },
-      focus(e) {
-        console.log(e)
-        e.returnValue = false
-        let s = window.getSelection()
-        let r = document.createRange();
-        this.anchorNode = s.anchorNode
-        this.anchorOffset = s.anchorOffset
-        r.setStart(s.anchorNode, s.anchorOffset);
-        r.setEnd(s.anchorNode, s.anchorOffset);
-        s.removeAllRanges();
-        s.addRange(r);
+      showHeaderOptions(bool) {
+        this.showHeader = bool
+      },
+      showColorOptions(bool) {
+        this.showColor = bool
       },
       selectFont(e) {
         if (e.target.title === 'font') {
@@ -219,11 +229,17 @@
       superscript() {
         // 上角标
       },
-      foreColor(e) {
-        document.execCommand('foreColor', false, e.target.value)
+      test() {
+        console.log('test')
+      },
+      foreColor(color) {
+        let result = document.execCommand('foreColor', false, color)
+        console.log(result)
       },
       fontName(font) {
-        document.execCommand('fontName', false, font)
+        console.log(font)
+        let result = document.execCommand('fontName', false, font)
+        console.log(result)
       },
       hiliteColor(color) {
         document.execCommand('hiliteColor', false, color)
@@ -371,14 +387,24 @@
   }
 
   .font-options {
-    display: block;
-    width: 400px;
-    padding: 10px;
+    width: 80px;
     background: $extra-light-gray;
 
-    > select {
-      width: 100px;
-    }
+    cursor: pointer;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    /*
+      Introduced in IE 10.
+      See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+    */
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .color-block {
+    width: 50px;
+    height: 30px;
   }
 
   [contenteditable=true]:empty:before {
