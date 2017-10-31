@@ -20,7 +20,7 @@
           </div>
           <div v-show="currentEditor === 'markdown'">
             <i class="fa fa-html5"></i>
-            <span class="button-info">Rich text</span>
+            <span class="button-info">RichText</span>
           </div>
         </div>
       </div>
