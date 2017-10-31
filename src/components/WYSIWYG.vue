@@ -334,6 +334,8 @@
 
   #wysiwyg {
     background: $white;
+
+
   }
 
   .container {
@@ -344,6 +346,10 @@
     padding: 3px 10px;
 
     &:hover {
+      border-color: $silver;
+    }
+
+    &:focus {
       border-color: $silver;
     }
   }

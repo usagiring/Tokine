@@ -14,8 +14,14 @@
           <i class="fa fa-bookmark"></i>
         </div>
         <div class="action-button" @click="changeEditor">
-          <span class="fake-icon-markdown">MD</span>
-          <span class="button-info">Markdown</span>
+          <div v-show="currentEditor === 'htmlEditor'">
+            <span class="fake-icon-markdown">MD</span>
+            <span class="button-info">Markdown</span>
+          </div>
+          <div v-show="currentEditor === 'markdown'">
+            <i class="fa fa-html5"></i>
+            <span class="button-info">Rich text</span>
+          </div>
         </div>
       </div>
     </div>
