@@ -1,7 +1,7 @@
 <template>
   <div id="markdown-editor" class="markdown-editor">
     <div class="edit-area-container">
-      <textarea class="edit-area" @input="generate" title="edit-area"></textarea>
+      <textarea class="edit-area" @input="generate" title="edit-area" autofocus placeholder="please write markdown here..." rows="10"></textarea>
     </div>
     <div class="view-area" v-html="this.html"></div>
   </div>
@@ -22,6 +22,7 @@
         let converter = new showdown.Converter()
         let text = e.target.value
         this.html = converter.makeHtml(text);
+        this.$store.commit('setContent', this.html)
       }
     }
   }
@@ -31,15 +32,22 @@
   @import '../style/common/variables';
 
   .edit-area-container {
-    height: 400px;
+    vertical-align: top;
+    width: 45%;
+    display: inline-block;
   }
 
   .edit-area {
     width: 100%;
-    height: 100%;
+    min-height: 300px;
+    height: auto;
+
+    resize: vertical;
   }
 
   .view-area {
-    height: 400px;
+    vertical-align: top;
+    width: 45%;
+    display: inline-block;
   }
 </style>

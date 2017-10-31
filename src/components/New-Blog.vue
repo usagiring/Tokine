@@ -1,15 +1,21 @@
 <template>
   <div id="new-blog">
     <div class="left-container">
-      <div class="action-btn-group">
+      <div class="action-btn-group" >
         <div class="action-button" @click="publish">
           <i class="fa fa-send"></i>
+          <span class="button-info">Publish</span>
         </div>
-        <div class="action-button">
+        <div class="action-button" @click="preview">
           <i class="fa fa-eye"></i>
+          <span class="button-info">Preview</span>
         </div>
         <div class="action-button">
           <i class="fa fa-bookmark"></i>
+        </div>
+        <div class="action-button" @click="changeEditor">
+          <span class="fake-icon-markdown">MD</span>
+          <span class="button-info">Markdown</span>
         </div>
       </div>
     </div>
@@ -20,7 +26,11 @@
       </div>
 
       <div class="editor-wrapper">
-        <editor v-on:html="getHtml"></editor>
+        <keep-alive>
+          <component :is="currentEditor">
+            <html-editor></html-editor>
+          </component>
+        </keep-alive>
       </div>
 
     </div>
@@ -41,11 +51,19 @@
       </span>
     </el-dialog>
 
+    <el-dialog
+      :title="title"
+      :visible.sync="showPreviewDialog"
+      width="80%">
+      <div v-html="html"></div>
+    </el-dialog>
+
   </div>
 </template>
 
 <script>
-  import editor from './WYSIWYG.vue'
+  import htmlEditor from './WYSIWYG.vue'
+  import markdown from './markdown.vue'
   import {post} from '../utilities/rest'
 
   export default {
@@ -54,7 +72,10 @@
       return {
         title: '',
         showSuccessDialog: false,
-        id: ''
+        showPreviewDialog: false,
+        id: '',
+        currentEditor: 'htmlEditor',
+        html: ''
       }
     },
     created() {
@@ -78,15 +99,24 @@
             this.showSuccessDialog = true
           })
       },
-      getHtml(data) {
-        console.log(data)
-      },
       goToViewBlog() {
         this.$router.push(`/blog/${this.id}`)
+      },
+      changeEditor() {
+        if (this.currentEditor === 'htmlEditor') {
+          this.currentEditor = 'markdown'
+        } else {
+          this.currentEditor = 'htmlEditor'
+        }
+      },
+      preview() {
+        this.showPreviewDialog = true
+        this.html = this.$store.state.blog.content
       }
     },
     components: {
-      editor
+      htmlEditor,
+      markdown
     }
   }
 </script>
@@ -95,16 +125,31 @@
   @import '../style/common/variables';
 
   #new-blog {
+    background: $white;
+  }
+
+  .left-container {
+
   }
 
   .action-btn-group {
     position: fixed;
+
+    transition: .5s width;
+    width: 60px;
+    height: auto;
+    background: $extra-light-black;
+    color: $white;
+
+    &:hover {
+      width: 150px;
+    }
   }
 
   .mid-container {
     position: relative;
     margin: 0 auto;
-    width: 90%;
+    width: 80%;
   }
 
   .editor-wrapper {
@@ -113,8 +158,7 @@
   }
 
   .action-button {
-    background: $extra-light-black;
-    color: $white;
+    position: relative;
     font-size: 20px;
     padding: 20px;
 
@@ -143,5 +187,17 @@
 
   .info-container {
     display: inline-block;
+  }
+
+  .fake-icon-markdown {
+    font-size: 12px;
+  }
+
+  .button-info {
+    font-size: 14px;
+    position: absolute;
+    left: 60px;
+    top: 23px;
+
   }
 </style>
