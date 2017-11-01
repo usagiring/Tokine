@@ -28,5 +28,5 @@ export {
   get,
   put,
   post,
-  remove as delete
+  remove
 }
