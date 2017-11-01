@@ -3,12 +3,18 @@
     <div class="left-container">
       <div class="action-btn-group">
         <div class="action-button" @click="edit">
-          <i class="fa fa-pencil"></i>
+          <i class="fa fa-pencil icon-btn"></i>
           <span class="button-info">Edit</span>
         </div>
         <div class="action-button delete-btn" @click="removeBlog">
-          <i class="fa fa-trash"></i>
-          <span class="button-info">Delete</span>
+          <div v-if="!deleting">
+            <i class="fa fa-trash icon-btn"></i>
+            <span class="button-info">Delete</span>
+          </div>
+          <div v-else>
+            <i class="fa fa-spinner fa-spin icon-btn"></i>
+            <span class="button-info">Waiting...</span>
+          </div>
         </div>
       </div>
     </div>
@@ -34,7 +40,8 @@
     },
     data() {
       return {
-        blog: {}
+        blog: {},
+        deleting: false
       }
     },
     methods: {
@@ -42,10 +49,12 @@
 
       },
       removeBlog() {
+        this.deleting = true
         remove(`/blog/${this.blog._id}`)
           .then(() => {
             this.$store.commit('removeBlog', this.blog)
             this.$router.replace('/blogs')
+            this.deleting = false
             this.$message.success('delete success')
           })
       }
@@ -83,7 +92,6 @@
 
   .action-button {
     position: relative;
-    font-size: 20px;
     padding: 20px;
 
     &:hover {
@@ -102,5 +110,9 @@
   .delete-btn {
     background: $danger;
 
+  }
+
+  .icon-btn {
+    font-size: 20px;
   }
 </style>

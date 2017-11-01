@@ -2,7 +2,8 @@ import {get} from '../../utilities/rest'
 
 let schema = {
   content: '',
-  blogs: null
+  blogs: [],
+  loaded: false
 }
 
 let state = Object.assign({}, schema)
@@ -12,11 +13,11 @@ let mutations = {
     state.content = html
   },
   setBlogs(state, blogs) {
+    state.loaded = true
     state.blogs = blogs
   },
   removeBlog(state, blog) {
     state.blogs = state.blogs.filter(item => item._id !== blog._id)
-    console.log(state)
   }
 }
 

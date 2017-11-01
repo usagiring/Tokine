@@ -23,11 +23,12 @@
       return {}
     },
     created() {
-      let url = '/blogs';
-      if (!this.$store.state.blog.blogs) {
+      if (!this.$store.state.blog.loaded) {
+        let url = '/graphql?query={blogs{_id,title}}';
+
         get(url)
-          .then(blogs => {
-            this.$store.commit('setBlogs', blogs)
+          .then(result => {
+            this.$store.commit('setBlogs', result.data.blogs)
           })
       }
     },
@@ -61,14 +62,14 @@
     text-decoration: none;
   }
 
-  .title-container{
+  .title-container {
   }
 
-  .blog-item-container{
+  .blog-item-container {
     position: relative;
     width: 100%;
     height: 50px;
-    border-bottom:1px solid $gray;
+    border-bottom: 1px solid $gray;
     line-height: 50px;
   }
 
