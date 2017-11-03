@@ -1,7 +1,7 @@
 <template>
   <div class="app-nav">
     <div class="sign-btn-group" v-if="user.username">
-      <router-link class="username" to="/profile">{{ user.username }}</router-link>
+      <router-link class="username" :to="profile">{{ user.username }}</router-link>
       <el-button class="sign-out-btn" type="text" @click="signOut">sign out</el-button>
     </div>
     <div class="sign-btn-group" v-if="!user.username">
@@ -20,6 +20,9 @@
     computed: {
       user() {
         return this.$store.state.user
+      },
+      profile() {
+        return `${this.$store.state.user.username}/profile`
       }
     },
     methods: {
@@ -56,7 +59,7 @@
     }
   }
 
-  .username{
+  .username {
     font-weight: bold;
   }
 

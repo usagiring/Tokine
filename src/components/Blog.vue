@@ -2,11 +2,15 @@
   <div id="blog">
     <div class="left-container">
       <div class="action-btn-group">
-        <div class="action-button" @click="edit">
+        <div v-if="!editMode" class="action-button" @click="edit">
           <i class="fa fa-pencil icon-btn"></i>
           <span class="button-info">Edit</span>
         </div>
-        <div class="action-button delete-btn" @click="removeBlog">
+        <div v-if="editMode" class="action-button" @click="edit">
+          <i class="fa fa-undo icon-btn"></i>
+          <span class="button-info">cancel</span>
+        </div>
+        <div v-if="!editMode" class="action-button delete-btn" @click="removeBlog">
           <div v-if="!deleting">
             <i class="fa fa-trash icon-btn"></i>
             <span class="button-info">Delete</span>
@@ -16,17 +20,33 @@
             <span class="button-info">Waiting...</span>
           </div>
         </div>
+        <div v-if="editMode" class="action-button" @click="update">
+          <i class="fa fa-check icon-btn"></i>
+          <span class="button-info">update</span>
+        </div>
       </div>
     </div>
     <div class="container">
-      <div v-html="blog.content"></div>
+      <div v-if="!editMode">
+        <h1 class="title-container">{{blog.title}}</h1>
+        <div v-html="blog.content"></div>
+      </div>
+      <div v-else>
+        <div class="title-container">
+          <el-input class="title-input" v-model="title" placeholder="请输入标题"></el-input>
+        </div>
+        <div class="editor-container">
+          <htmlEditor :html="blog.content"></htmlEditor>
+        </div>
+      </div>
     </div>
 
   </div>
 </template>
 
 <script>
-  import {get, remove} from '../utilities/rest'
+  import {get, remove, put} from '../utilities/rest'
+  import htmlEditor from './WYSIWYG.vue'
 
   export default {
     name: 'blog',
@@ -36,17 +56,21 @@
       get(url)
         .then(blog => {
           this.blog = blog
+          this.title = blog.title
         })
     },
     data() {
       return {
         blog: {},
-        deleting: false
+        title: '',
+        deleting: false,
+        editMode: false
       }
     },
     methods: {
       edit() {
-
+        this.editMode = !this.editMode
+        this.$store.commit('setContent', blog.content)
       },
       removeBlog() {
         this.deleting = true
@@ -57,9 +81,28 @@
             this.deleting = false
             this.$message.success('delete success')
           })
+      },
+      update() {
+        console.log(this.title)
+        let data = {
+          title: this.title,
+          content: this.$store.state.blog.content
+        }
+        put(`/blog/${this.blog._id}`, data)
+          .then(blog => {
+            this.blog = blog
+            this.editMode = false
+          })
+      },
+      changeTitle(e) {
+        console.log(e)
+//        this.title = e.target.value
       }
     },
-    computed: {}
+    computed: {},
+    components: {
+      htmlEditor
+    }
   }
 </script>
 
@@ -69,7 +112,6 @@
   .container {
     width: 80%;
     margin: 0 auto;
-    padding-top: 3%;
   }
 
   .left-container {
@@ -114,5 +156,16 @@
 
   .icon-btn {
     font-size: 20px;
+  }
+
+  .title-container {
+    position: relative;
+    top: 20px;
+    text-align: center;
+  }
+
+  .editor-container {
+    position: relative;
+    top: 40px;
   }
 </style>

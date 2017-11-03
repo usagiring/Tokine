@@ -1,6 +1,7 @@
 const Blogs = () => import('../components/Blogs.vue')
 const Blog = () => import('../components/Blog.vue')
 const NewBlog = () => import('../components/New-Blog.vue')
+
 // import NewBlog from '../components/New-Blog.vue'
 
 export default [

@@ -114,6 +114,7 @@
 <script>
   export default {
     name: 'wysiwyg',
+    props: ['html'],
     data() {
       return {
         boldIsActive: false,
@@ -136,6 +137,8 @@
       document.execCommand('styleWithCSS', false, null)
     },
     mounted() {
+      $('#text-area').html(this.html)
+
       // focus
       let p = document.getElementById('text-area')
       let s = window.getSelection()
@@ -334,7 +337,6 @@
 
   #wysiwyg {
     background: $white;
-
 
   }
 
