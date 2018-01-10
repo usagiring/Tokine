@@ -3,13 +3,20 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import './style/application.scss'
-import ElementUI from 'element-ui'
 import store from './store/index'
+
 import * as tools from './utilities/tools'
+
+import iView from 'iview';
+import ElementUI from 'element-ui'
+import 'iview/dist/styles/iview.css';
+
+import './style/application.scss'
+import './style/iview-customize.less'
 
 Vue.prototype.tools = tools;
 Vue.use(ElementUI)
+Vue.use(iView)
 
 Vue.config.productionTip = false
 

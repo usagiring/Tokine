@@ -2,10 +2,10 @@
   <div id="sign-in" class="sign-in-wrapper">
     <div class="container">
       <div class="title">Sign In</div>
-      <el-input v-model="username" placeholder="Username" icon="fa-user" autofocus></el-input>
-      <el-input type="password" v-model="password" placeholder="Password" icon="fa-key"></el-input>
+      <Input class="input-label" v-model="username" placeholder="Username" icon="fa-user" autofocus/>
+      <Input class="input-label" type="password" v-model="password" placeholder="Password" icon="fa-key"/>
       <div>
-        <el-button class="sign-in-btn" type="primary" @click="signIn" :disabled="!validate">Sign In</el-button>
+        <Button class="sign-in-btn" type="primary" @click="signIn" :disabled="!validate">Sign In</Button>
       </div>
     </div>
   </div>
@@ -68,13 +68,13 @@
     border: 1px solid #ffffff;
   }
 
-  .el-input {
+  .input-label {
     margin-top: 10px;
     background-color: transparent; // 透明
   }
 
   .sign-in-btn {
-    margin-top: 30px;
+    margin-top: 10px;
     width: 300px;
   }
 </style>

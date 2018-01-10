@@ -15,6 +15,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "element-ui": "^2.0.0",
+    "iview": "^2.8.0",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "showdown": "^1.7.6",
@@ -66,6 +67,8 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.31",
     "karma-webpack": "^2.0.2",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
     "mocha": "^3.2.0",
     "node-sass": "^4.5.3",
     "opn": "^5.1.0",

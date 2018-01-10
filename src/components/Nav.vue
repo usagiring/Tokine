@@ -1,8 +1,16 @@
 <template>
   <div class="app-nav">
     <div class="sign-btn-group" v-if="user.username">
-      <router-link class="username" :to="profile">{{ user.username }}</router-link>
-      <el-button class="sign-out-btn" type="text" @click="signOut">sign out</el-button>
+      <Dropdown>
+        <div>
+          <router-link class="username" :to="profile">{{ user.username }}</router-link>
+        </div>
+        <DropdownMenu slot="list">
+          <DropdownItem>
+            <Button @click="signOut" type="text">sign-out</Button>
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
     </div>
     <div class="sign-btn-group" v-if="!user.username">
       <router-link to="/sign-in">sign in</router-link>
@@ -60,6 +68,7 @@
   }
 
   .username {
+    color: $white;
     font-weight: bold;
   }
 
