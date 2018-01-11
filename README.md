@@ -2,6 +2,8 @@
 
 > A Vue.js project
 
+https://tokine.info/
+
 ## Build Setup
 
 ``` bash
@@ -27,7 +29,9 @@ npm test
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 # note:
-## sass 配置
-npm install sass-loader node-sass webpack --save-dev
-
+### sass 配置
+* npm install sass-loader node-sass -D
+### less 配置
+* npm install less-loader less -D
+---
 vps 内存小于2G build会报错
