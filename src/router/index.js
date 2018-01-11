@@ -7,7 +7,6 @@ import entry from './entry'
 import user from './user'
 import chatRoom from './chatRoom'
 import blog from './blog'
-import tools from './tools'
 
 import Editor from '../components/markdown.vue'
 
@@ -22,8 +21,7 @@ let routes = [
   entry,
   user,
   chatRoom,
-  blog,
-  tools
+  blog
 )
 
 let router = new Router({

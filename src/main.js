@@ -13,8 +13,10 @@ import 'iview/dist/styles/iview.css';
 
 import './style/application.scss'
 import './style/iview-customize.less'
+import htmlEditor from 'vue-html-editor'
 
 Vue.prototype.tools = tools;
+Vue.use(htmlEditor)
 Vue.use(ElementUI)
 Vue.use(iView)
 

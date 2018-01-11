@@ -36,7 +36,7 @@
           <el-input class="title-input" v-model="title" placeholder="请输入标题"></el-input>
         </div>
         <div class="editor-container">
-          <htmlEditor :html="blog.content"></htmlEditor>
+          <html-editor :text="blog.content" ref="editor"></html-editor>
         </div>
       </div>
     </div>
@@ -46,7 +46,6 @@
 
 <script>
   import {get, remove, put} from '../utilities/rest'
-  import htmlEditor from './WYSIWYG.vue'
 
   export default {
     name: 'blog',
@@ -70,7 +69,6 @@
     methods: {
       edit() {
         this.editMode = !this.editMode
-        this.$store.commit('setContent', blog.content)
       },
       removeBlog() {
         this.deleting = true
@@ -86,7 +84,7 @@
         console.log(this.title)
         let data = {
           title: this.title,
-          content: this.$store.state.blog.content
+          content: this.$refs.editor.getHtml()
         }
         put(`/blog/${this.blog._id}`, data)
           .then(blog => {
@@ -101,7 +99,6 @@
     },
     computed: {},
     components: {
-      htmlEditor
     }
   }
 </script>

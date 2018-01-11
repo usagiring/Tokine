@@ -21,11 +21,13 @@
     }),
     computed: {},
     methods: {
+      getHtml() {
+        return this.html
+      },
       generate(e) {
         let converter = new showdown.Converter()
         let text = e.target.value
-        this.html = converter.makeHtml(text);
-        this.$store.commit('setContent', this.html)
+        this.html = converter.makeHtml(text)
       }
     }
   }

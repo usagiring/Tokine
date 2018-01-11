@@ -22,7 +22,8 @@
     "socket.io": "^2.0.3",
     "vue": "^2.5.2",
     "vue-router": "^2.7.0",
-    "vuex": "^2.4.1"
+    "vuex": "^2.4.1",
+    "vue-html-editor": "https://github.com/hling51325/vue-html-editor.git"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

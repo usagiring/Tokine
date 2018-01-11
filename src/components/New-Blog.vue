@@ -1,7 +1,7 @@
 <template>
   <div id="new-blog">
     <div class="left-container">
-      <div class="action-btn-group" >
+      <div class="action-btn-group">
         <div class="action-button" @click="publish">
           <i class="fa fa-send"></i>
           <span class="button-info">Publish</span>
@@ -14,7 +14,7 @@
           <i class="fa fa-bookmark"></i>
         </div>
         <div class="action-button" @click="changeEditor">
-          <div v-show="currentEditor === 'htmlEditor'">
+          <div v-show="currentEditor === 'html-editor'">
             <span class="fake-icon-markdown">MD</span>
             <span class="button-info">Markdown</span>
           </div>
@@ -33,9 +33,7 @@
 
       <div class="editor-wrapper">
         <keep-alive>
-          <component :is="currentEditor">
-            <html-editor></html-editor>
-          </component>
+          <component :is="currentEditor" ref="editor"/>
         </keep-alive>
       </div>
 
@@ -68,7 +66,6 @@
 </template>
 
 <script>
-  import htmlEditor from './WYSIWYG.vue'
   import markdown from './markdown.vue'
   import {post} from '../utilities/rest'
 
@@ -80,7 +77,7 @@
         showSuccessDialog: false,
         showPreviewDialog: false,
         id: '',
-        currentEditor: 'htmlEditor',
+        currentEditor: 'html-editor',
         html: ''
       }
     },
@@ -95,9 +92,10 @@
         }
         let data = {
           title: this.title,
-          content: this.$store.state.blog.content
+          content: this.$refs.editor.getHtml()
         }
         let url = '/blog'
+
         post(url, data)
           .then(data => {
             console.log(data)
@@ -109,19 +107,18 @@
         this.$router.push(`/blog/${this.id}`)
       },
       changeEditor() {
-        if (this.currentEditor === 'htmlEditor') {
+        if (this.currentEditor === 'html-editor') {
           this.currentEditor = 'markdown'
         } else {
-          this.currentEditor = 'htmlEditor'
+          this.currentEditor = 'html-editor'
         }
       },
       preview() {
         this.showPreviewDialog = true
-        this.html = this.$store.state.blog.content
+        this.html = this.$refs.editor.getHtml()
       }
     },
     components: {
-      htmlEditor,
       markdown
     }
   }
