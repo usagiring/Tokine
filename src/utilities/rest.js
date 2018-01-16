@@ -18,6 +18,9 @@ function put(url, data) {
 function post(url, data) {
   return api.post(baseAPI + url, data)
     .then(result => result.data)
+    .catch(e => {
+      throw e.response.data
+    })
 }
 
 function remove(url) {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <div>
+      <div class="profile-left-setting">
         <Upload action="////"
                 name="file"
                 :max-size="2048"
@@ -13,22 +13,22 @@
         <Button type="primary" @click="upload" :disabled="!this.avatar">Upload</Button>
         <div>
           <span class="profile-label">uid:</span>
-          <Input :value="user.uid" class="profile-input" title="nickname" disabled/>
+          <Input :value="user.uid" class="uid" title="nickname" disabled/>
         </div>
       </div>
 
-      <div>
-        <div>
+      <div class="profile-right-setting">
+        <div class="setting-item">
           <span class="profile-label">name:</span>
           <Input v-model="user.nickname" class="profile-input" title="nickname"/>
         </div>
-        <div>
+        <div class="setting-item">
           <span class="profile-label">birthday:</span>
           <DatePicker class="profile-input" v-model="user.birthday"></DatePicker>
         </div>
+        <Button type="primary" @click="updateUserInfo">Update Profile Setting</Button>
       </div>
 
-      <Button type="primary" @click="updateUserInfo">Update Profile Setting</Button>
     </div>
   </div>
 </template>
@@ -77,10 +77,31 @@
 <style scoped>
   .profile-label {
     display: inline-block;
-    width: 70px;
+    width: 50px;
+  }
+
+  .uid {
+    width: 150px;
+
   }
 
   .profile-input {
     width: 300px;
+  }
+
+  .profile-left-setting {
+    display: inline-block;
+    vertical-align: top;
+    width: 30%;
+  }
+
+  .profile-right-setting {
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+  }
+
+  .setting-item {
+    padding: 10px;
   }
 </style>

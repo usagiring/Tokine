@@ -5,8 +5,9 @@
     </div>
     <div class="sign-btn-group" v-if="user.username">
       <Dropdown trigger="click">
-        <div>
-          <Avatar icon="person"></Avatar>
+        <div class="avatar-container">
+          <Avatar v-if="user.avatar" :src="avatarSrc"></Avatar>
+          <Avatar v-else icon="person"></Avatar>
         </div>
         <DropdownMenu slot="list">
           <DropdownItem>
@@ -22,13 +23,15 @@
       </Dropdown>
     </div>
     <div class="sign-btn-group" v-if="!user.username">
-      <router-link to="/sign-in">sign in</router-link>
-      <router-link to="/sign-up">sign up</router-link>
+      <router-link class="sign-btn" to="/sign-in">sign in</router-link>
+      <router-link class="sign-btn" to="/sign-up">sign up</router-link>
     </div>
   </div>
 </template>
 
 <script>
+  import baseAPI from '../../config/baseAPI'
+
   export default {
     name: 'app-nav',
     data() {
@@ -40,6 +43,10 @@
       },
       profile() {
         return `${this.$store.state.user.username}/profile`
+      },
+
+      avatarSrc() {
+        return `${baseAPI}/file/${this.$store.state.user.avatar}`
       }
     },
     methods: {
@@ -81,10 +88,21 @@
     position: absolute;
     right: 50px;
     line-height: 40px;
+  }
+
+  .sign-btn {
+    font-size: 16px;
+    color: $white;
+
+    padding-right: 10px;
 
     &:hover {
-      background: $light-blue;
+      text-decoration: underline;
     }
+  }
+
+  .avatar-container :hover {
+    background: $light-blue;
   }
 
   .username {

@@ -34,12 +34,14 @@
           password: this.password
         })
           .then(user => {
-            console.log(user)
             this.$store.commit('setUser', user)
             this.$router.push('/')
           })
           .catch(e => {
             console.log(e)
+            if (e.code === 1) {
+              this.$Message.error('username or password error');
+            }
           })
       }
     }
