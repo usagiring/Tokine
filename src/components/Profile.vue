@@ -5,7 +5,7 @@
         <div class="avatar-container">
           <img id="avatar" :src="avatar">
           <Spin v-if="this.uploading" fix>
-            <Icon type="load-c" size=18  class="demo-spin-icon-load"></Icon>
+            <Icon type="load-c" size=18   class="demo-spin-icon-load"></Icon>
           </Spin>
         </div>
 
@@ -49,7 +49,7 @@
     name: 'profile',
     data() {
       return {
-        avatar: `${baseAPI}/file/${this.$store.state.user.avatar}`,
+        avatar: this.$store.state.user.avatar ? `${baseAPI}/file/${this.$store.state.user.avatar}` : null,
         originalType: null,
         cropper: null,
         uploading: false,

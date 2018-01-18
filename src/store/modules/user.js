@@ -3,6 +3,7 @@ import {get} from '../../utilities/rest'
 let schema = {
   _id: null,
   uid: null,
+  avatar: null,
   username: null,
   nickname: null,
   birthday: null
