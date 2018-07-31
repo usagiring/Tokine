@@ -8,7 +8,7 @@ import user from './user'
 import chatRoom from './chatRoom'
 import blog from './blog'
 
-import Editor from '../components/markdown.vue'
+const Editor = () => import('../components/markdown.vue')
 
 Vue.use(Router)
 

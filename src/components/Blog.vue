@@ -111,10 +111,6 @@
     margin: 0 auto;
   }
 
-  .left-container {
-
-  }
-
   .action-btn-group {
     position: fixed;
 

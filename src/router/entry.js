@@ -1,6 +1,7 @@
 import Hello from '../components/Hello.vue'
 import SignIn from '../components/SignIn.vue'
 import SignUp from '../components/SignUp.vue'
+const Calculator = () => import('../components/Calculator.vue')
 
 export default [
   {
@@ -18,5 +19,9 @@ export default [
     path: '/sign-up',
     name: 'sign-up',
     component: SignUp
+  },
+  {
+    path: '/calculator',
+    component: Calculator
   }
 ]
