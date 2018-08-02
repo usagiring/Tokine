@@ -2,6 +2,7 @@ import Hello from '../components/Hello.vue'
 import SignIn from '../components/SignIn.vue'
 import SignUp from '../components/SignUp.vue'
 const Calculator = () => import('../components/Calculator.vue')
+const Three = () => import('../components/Three.vue')
 
 export default [
   {
@@ -23,5 +24,9 @@ export default [
   {
     path: '/calculator',
     component: Calculator
+  },
+  {
+    path: '/three',
+    component: Three
   }
 ]
