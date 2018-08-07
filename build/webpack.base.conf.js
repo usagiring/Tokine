@@ -23,7 +23,8 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       "$": "jquery",
-      "THREE": "three"
+      "THREE": "three",
+      "MMDParser": "mmd-parser"
     })
   ],
   resolve: {

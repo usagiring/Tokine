@@ -15,8 +15,8 @@ function put(url, data) {
     .then(result => result.data)
 }
 
-function post(url, data) {
-  return api.post(baseAPI + url, data)
+function post(url, data, config = {}) {
+  return api.post(baseAPI + url, data, config)
     .then(result => result.data)
     .catch(e => {
       throw e.response.data
