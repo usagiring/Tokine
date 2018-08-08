@@ -131,6 +131,23 @@
           <Checkbox v-model="monsterAffect" class="tip">怪物属性对应</Checkbox>
             </Tooltip>
       </div>
+      <div style="margin: 20px 0;border-top: 1px dashed #bbb"></div>
+      <div class="item-container">
+        <div style="display: inline-block;width: 500px">
+             <span style="color:red;font-size: 16px;">连击期望伤害:</span>
+          <span style="color:red;font-size: 16px;">{{combooDamage}}</span>
+        </div>
+        <div style="display: inline-block">
+           <span style="color:red;font-size: 16px;">最高伤害:</span>
+          <span style="color:red;font-size: 16px;">{{topDamage}}</span>
+        </div>
+     
+      </div>
+      <div class="item-container">
+          <Table :columns="columns2" :data="data2"></Table>
+        <Button style="width: 100%;margin-top:2px" type="ghost" @click="addRow"><Icon style="font-size: 16px" type="plus-round"></Icon></Button>
+
+      </div>
     </div>
     <div class="container">
         <div class="item-container">基础值：{{baseDamage}}</div>
@@ -144,6 +161,7 @@ export default {
   name: "calculator",
   created() {},
   data() {
+    let self = this;
     return {
       skillDamage: 100000,
       normalReduction: 60,
@@ -175,31 +193,142 @@ export default {
           key: "rate"
         },
         {
-          title: " ",
+          title: "",
           key: "action",
           render: (h, params) => {
-            return h(
-              "Icon",
-              {
-                props: {
-                  type: "trash-b",
-                  size: "18",
-                  color: "gray"
-                },
-                on: {
-                  click: () => {
-                    this.remove(params.index);
-                  }
-                }
+            return h("Icon", {
+              props: {
+                type: "minus-round",
+                size: "18",
+                color: "gray"
               },
-              "remove"
-            );
+              style: {
+                cursor: "pointer"
+              },
+              on: {
+                click: () => {
+                  this.remove(params.index);
+                }
+              }
+            });
           }
         }
       ],
       data1: [],
-      defTemp: 75
+      defTemp: 75,
+      columns2: [
+        {
+          title: "系数",
+          key: "c",
+          render: (h, params) => {
+            return h("InputNumber", {
+              props: {
+                min: 0,
+                step: 0.1,
+                value: self.data2[params.index].c
+              },
+              on: {
+                "on-change": value => {
+                  let item = self.data2[params.index];
+                  item.c = value;
+                  item.oldRate = (item.c * item.p).toFixed(2) + "%";
+                  calData2();
+                }
+              }
+            });
+          }
+        },
+        {
+          title: "概率",
+          key: "p",
+          render: (h, params) => {
+            return h("InputNumber", {
+              props: {
+                min: 0,
+                step: 10,
+                value: self.data2[params.index].p,
+                formatter: value => `${value}%`,
+                parser: value => value.replace("%", "")
+              },
+              on: {
+                "on-change": value => {
+                  let item = self.data2[params.index];
+                  item.p = value;
+                  item.oldRate = (item.c * item.p).toFixed(2) + "%";
+                  calData2();
+                }
+              }
+            });
+          }
+        },
+        {
+          title: "备注",
+          key: "remark",
+          render: (h, params) => {
+            return h("Input", {
+              props: {
+                value: self.data2[params.index].remark
+              },
+              on: {
+                "on-blur": value => {
+                  let item = self.data2[params.index];
+                  item.remark = value.target.value;
+                }
+              }
+            });
+          }
+        },
+        {
+          title: "期望收益",
+          key: "rate"
+        },
+        {
+          title: "原收益",
+          key: "oldRate"
+        },
+        {
+          title: "",
+          key: "action",
+          render: (h, params) => {
+            return h("Icon", {
+              props: {
+                type: "minus-round",
+                size: "18",
+                color: "gray"
+              },
+              style: {
+                cursor: "pointer"
+              },
+              on: {
+                click: () => {
+                  this.removeData2(params.index);
+                }
+              }
+            });
+          }
+        }
+      ],
+      data2: [
+        {
+          c: 1.1,
+          p: 10,
+          remark: "狂热",
+          rate: "11%",
+          oldRate: "11%"
+        }
+      ]
     };
+
+    function calData2() {
+      for (let i = 0; i < self.data2.length; i++) {
+        let preRate = 1;
+        for (let j = 0; j < i; j++) {
+          preRate += self.data2[j].c * self.data2[j].p / 100;
+        }
+        let rate = self.data2[i].c * self.data2[i].p / 100 / preRate;
+        self.data2[i].rate = (rate * 100).toFixed(2) + "%";
+      }
+    }
   },
   methods: {
     setBaseDamage() {
@@ -218,13 +347,31 @@ export default {
     remove(index) {
       this.data1.splice(index, 1);
     },
+    removeData2(index) {
+      this.data2.splice(index, 1);
+    },
     defChange(param) {
       console.log(param);
+    },
+    addRow() {
+      let data = {
+        c: 1,
+        p: 10,
+        remark: ""
+      };
+
+      let o = this.data2.reduce((pre, curr) => {
+        return pre + curr.c * curr.p / 100;
+      }, 1);
+      let oldRate = data.c * data.p + "%";
+      let rate = data.c * data.p / 100 / o;
+      data.rate = (rate * 100).toFixed(2) + "%";
+      data.oldRate = oldRate;
+      this.data2.push(data);
     }
   },
   computed: {
     damage() {
-      console.log(this.monsterDef);
       return (
         Number(this.skillDamage) *
         (1 - (Number(this.normalReduction) - Number(this.normalAdd)) / 100) *
@@ -269,6 +416,18 @@ export default {
       return this.baseDamage && this.damage
         ? ((this.damage / this.baseDamage - 1) * 100).toFixed(2)
         : 0;
+    },
+    combooDamage() {
+      let cc = this.data2.reduce((pre, curr) => {
+        return pre + curr.c * curr.p / 100;
+      }, 1);
+      return (this.damage * cc).toFixed(2);
+    },
+    topDamage() {
+      let cc = this.data2.reduce((pre, curr) => {
+        return pre + curr.c;
+      }, 1);
+      return (this.damage * cc).toFixed(2);
     }
   },
   components: {}

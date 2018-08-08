@@ -35,6 +35,7 @@ module.exports = {
     'no-undef': 0,
     'quotes': 0,
     'spaced-comment': 0,
-    'no-tabs': 0
+    'no-tabs': 0,
+    'space-infix-ops': 0
   }
 }
