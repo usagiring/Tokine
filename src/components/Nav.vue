@@ -65,12 +65,11 @@
 </script>
 
 <style scoped lang="scss">
-  @import '../style/common/variables';
 
   .app-nav {
     position: relative;
     height: 40px;
-    background: $blue;
+    background: $pink;
   }
 
   .logo-container {

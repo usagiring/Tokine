@@ -45,7 +45,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../style/common/variables";
 
 .blog-container {
   padding-top: 3%;

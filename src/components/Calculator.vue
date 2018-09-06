@@ -384,7 +384,9 @@ export default {
         (1 + Number(this.elementPlus) / 100) *
         (1 + Number(this.skillPlus) / 100) *
         (this.tenacity
-          ? 1 - (Number(this.tenacity) - Number(this.penetration)) / 100
+          ? 1 - (Number(this.tenacity) - Number(this.penetration)) / 100 <= 0
+            ? 1 / 100
+            : 1 - (Number(this.tenacity) - Number(this.penetration)) / 100
           : 1) *
         (this.armorAffect ? 1.2 : 1) *
         (this.monsterAffect ? 0.75 : 1)
@@ -435,7 +437,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../style/common/variables";
+
 .tip {
   font-size: 14px;
   color: blue;

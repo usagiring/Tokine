@@ -2,14 +2,14 @@
   <div class="sign-up-wrapper">
     <div class="container">
       <div class="title">Sign Up</div>
-      <el-input v-model="username" placeholder="Username" icon="fa-user" autofocus></el-input>
-      <el-input type="password" v-model="password" placeholder="Password" icon="fa-key"></el-input>
-      <el-input type="password" v-model="replyPassword" placeholder="Reply Password" icon="fa-key"></el-input>
+      <Input class='input' v-model="username" placeholder="Username" icon="fa-user" autofocus/>
+      <Input class='input' type="password" v-model="password" placeholder="Password" icon="fa-key"/>
+      <Input class='input' type="password" v-model="replyPassword" placeholder="Reply Password" icon="fa-key"/>
       <span class="err" v-if="!isPwdPass">输入密码不一致</span>
-      <el-input v-model="email" placeholder="Email" icon="fa-envelope"></el-input>
-      <el-input v-model="phone" placeholder="Phone" icon="fa-phone"></el-input>
+      <Input class='input' v-model="email" placeholder="Email" icon="fa-envelope"/>
+      <Input class='input' v-model="phone" placeholder="Phone" icon="fa-phone"/>
       <div>
-        <el-button class="sign-up-btn" type="primary" @click.prevent="signUp" :disabled="!validate">Sign Up</el-button>
+        <Button class="sign-up-btn" type="primary" @click.prevent="signUp" :disabled="!validate">Sign Up</Button>
       </div>
     </div>
   </div>
@@ -18,7 +18,6 @@
 
 <script>
   import {post} from '../utilities/rest'
-  import _ from 'lodash'
 
   export default {
     name: 'sign-up',
@@ -71,7 +70,6 @@
   .sign-up-wrapper {
     padding-top: 10%;
     height: 100%;
-    background: rgba(243, 243, 243, 0.05); // 登录页背景
   }
 
   .container {
@@ -81,13 +79,12 @@
     border: 1px solid #ffffff;
   }
 
-  .el-input {
+  .input {
     margin-top: 10px;
-    background-color: transparent; // 透明
   }
 
   .sign-up-btn {
-    margin-top: 30px;
+    margin-top: 10px;
     width: 300px;
   }
 
