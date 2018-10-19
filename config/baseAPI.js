@@ -1,6 +1,6 @@
 // let host = 'https://tokine.info'
-let host = ''
-// let host = 'http://localhost:3333'
+// let host = ''
+let host = 'http://localhost:3000'
 
 let version = '/api'
 

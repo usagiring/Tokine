@@ -1,4 +1,4 @@
-import {get} from '../../utilities/rest'
+import { get } from '../../utilities/rest'
 
 let schema = {
   _id: null,
@@ -18,7 +18,7 @@ let mutations = {
 }
 
 let actions = {
-  getUser({commit}, {username}) {
+  getUser({ commit }, { username }) {
     let where = {
       username
     }
@@ -28,25 +28,17 @@ let actions = {
         commit('setUser', user)
       })
   },
-  signed({state, commit, rootState}) {
-    return new Promise((resolve, reject) => {
-      if (state._id) {
-        resolve(state)
-      } else {
-        return get(`/signed`)
-          .then(user => {
-            commit('setUser', user)
-            resolve(user)
-          })
-      }
-    })
+  async me({ state, commit, rootState }) {
+    if (state._id) {
+      return state
+    } else {
+      let user = await get(`/me`)
+      commit('setUser', user)
+    }
   },
-  signOut({state, commit}) {
-    return get(`/sign-out`)
-      .then(() => {
-        commit('setUser', schema)
-        console.log(state)
-      })
+  async signOut({ state, commit }) {
+    await get(`/sign-out`)
+    commit('setUser', schema)
   }
 }
 

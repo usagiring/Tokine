@@ -29,20 +29,14 @@ let router = new Router({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   let noSignedAuth = entry.map(item => item.path)
-  if (noSignedAuth.indexOf(to.path) !== -1) {
+  if (noSignedAuth.includes(to.path)) {
     next()
   } else {
     console.log('need Sign in')
-    store.dispatch('signed')
-      .then(user => {
-        if (user) {
-          next()
-        } else {
-          next('/sign-in')
-        }
-      })
+    await store.dispatch('me')
+    store.state.user? next() : next('/sign-in')
   }
 })
 

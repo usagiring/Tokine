@@ -39,7 +39,7 @@ export default new Vue({
   },
   methods: {
     isSigned() {
-      store.dispatch('signed')
+      store.dispatch('me')
     }
   }
 })
