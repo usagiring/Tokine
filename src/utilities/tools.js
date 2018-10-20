@@ -1,8 +1,10 @@
 export function dropSpace(str) {
-  //      this.tools.dropSpace(e)
   return str.replace(/\s+/g, '');
 }
 
+export function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 /*
 name: String // 'user'
 where: String or Object // 'username: "test",uid:1' or {username: "test",uid:1}

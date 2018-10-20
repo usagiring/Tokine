@@ -1,11 +1,11 @@
 <template>
   <div id="sign-in" class="sign-in-wrapper">
     <div class="container">
-      <div class="title">Sign In</div>
+      <div class="title">登录</div>
       <Input class="input-label" v-model="username" placeholder="Username" icon="fa-user" autofocus/>
       <Input class="input-label" type="password" v-model="password" placeholder="Password" icon="fa-key"/>
       <div>
-        <Button class="sign-in-btn" type="primary" @click="signIn" :disabled="!validate">Sign In</Button>
+        <Button class="sign-in-btn" type="primary" @click="signIn" :disabled="!validate">登录</Button>
       </div>
     </div>
   </div>

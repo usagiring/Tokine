@@ -11,7 +11,6 @@ import iView from 'iview';
 import ElementUI from 'element-ui'
 import 'iview/dist/styles/iview.css';
 
-
 import './style/application.scss'
 import './style/iview-customize.less'
 import htmlEditor from 'vue-html-editor'
@@ -19,7 +18,15 @@ import htmlEditor from 'vue-html-editor'
 Vue.prototype.tools = tools;
 Vue.use(htmlEditor)
 Vue.use(ElementUI)
-Vue.use(iView)
+
+Vue.use(iView, {
+
+})
+
+Vue.prototype.$Message.config({
+  top: 50,
+  duration: 7
+});
 
 Vue.config.productionTip = false
 
@@ -33,7 +40,7 @@ export default new Vue({
     }
   },
   template: '<App/>',
-  components: {App},
+  components: { App },
   created() {
     this.isSigned();
   },
