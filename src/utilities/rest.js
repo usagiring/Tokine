@@ -15,12 +15,9 @@ function put(url, data) {
     .then(result => result.data)
 }
 
-function post(url, data, config = {}) {
-  return api.post(baseAPI + url, data, config)
-    .then(result => result.data)
-    .catch(e => {
-      throw e.response.data
-    })
+async function post(url, data, config = {}) {
+  let result = await api.post(baseAPI + url, data, config)
+  return result.data
 }
 
 function remove(url) {
