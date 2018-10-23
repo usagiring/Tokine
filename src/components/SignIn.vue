@@ -13,7 +13,8 @@
 </template>
 
 <script>
-const { get, post } = require("../utilities/rest");
+import { get, post } from "../utilities/rest";
+import { baseAPI } from "../../config/baseAPI";
 
 export default {
   name: "sign-in",
@@ -44,7 +45,7 @@ export default {
     }
   },
   async created() {
-    this.githubAuthUrl = await get(`/oauth/urls?to=github`);
+    this.githubAuthUrl = `${baseAPI}/oauth/github`;
   }
 };
 </script>

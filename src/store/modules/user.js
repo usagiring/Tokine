@@ -18,15 +18,13 @@ let mutations = {
 }
 
 let actions = {
-  getUser({ commit }, { username }) {
+  async getUser({ commit }, { username }) {
     let where = {
       username
     }
     where = JSON.stringify(where)
-    get(`/user?where=${where}`)
-      .then(user => {
-        commit('setUser', user)
-      })
+    let user = await get(`/user?where=${where}`)
+    commit('setUser', user)
   },
   async me({ state, commit, rootState }) {
     if (state._id) {

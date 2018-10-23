@@ -5,14 +5,14 @@ const api = axios.create({
   withCredentials: true
 })
 
-function get(url) {
-  return api.get(baseAPI + url)
-    .then(result => result.data)
+async function get(url) {
+  let result = await api.get(baseAPI + url)
+  return result.data
 }
 
-function put(url, data) {
-  return api.put(baseAPI + url, data)
-    .then(result => result.data)
+async function put(url, data) {
+  let result = await api.put(baseAPI + url, data)
+  return result.data
 }
 
 async function post(url, data, config = {}) {
