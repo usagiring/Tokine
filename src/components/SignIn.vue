@@ -45,7 +45,7 @@ export default {
     }
   },
   async created() {
-    this.githubAuthUrl = `${baseAPI}/oauth/github`;
+    this.githubAuthUrl = `${baseAPI}/auth/github`;
   }
 };
 </script>
