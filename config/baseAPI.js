@@ -1,14 +1,14 @@
 // let host = 'https://tokine.info'
 // let host = ''
-let host = 'http://localhost:3000'
+let server = 'http://localhost:3000'
 
-let version = '/api'
+let api = '/api'
 
-let baseAPI = host + version
+let baseAPI = server + api
 
 export {
-  host,
-  version,
+  server,
+  api,
   baseAPI
 }
 

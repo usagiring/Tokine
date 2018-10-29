@@ -11,9 +11,9 @@
 <script>
   import $ from 'jquery'
   import io from 'socket.io-client'
-  import {host} from '../../config/baseAPI'
+  import {server} from '../../config/baseAPI'
 
-  const socket = io(host)
+  const socket = io(server)
 
   socket.on('chat message', function (msg) {
     $('#messages').append($('<li>').text(msg));
