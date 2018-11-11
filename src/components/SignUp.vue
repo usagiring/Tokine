@@ -43,14 +43,18 @@ export default {
   },
   methods: {
     async signUp() {
-      let user = await post("/sign-up", {
-        username: this.username,
-        password: this.password,
-        email: this.email,
-        phone: this.phone
-      });
-      this.$store.commit("setUser", user);
-      this.$router.push("/");
+      try {
+        let user = await post("/sign-up", {
+          username: this.username,
+          password: this.password,
+          email: this.email,
+          phone: this.phone
+        });
+        this.$store.commit("setUser", user);
+        this.$router.push("/");
+      } catch (e) {
+        this.$Message.error(e.response.data.message);
+      }
     }
   }
 };

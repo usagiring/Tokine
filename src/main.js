@@ -29,6 +29,9 @@ Vue.prototype.$Message.config({
 });
 
 Vue.config.productionTip = false
+Vue.config.errorHandler = function (err, vm, info) {
+  console.log(err)
+}
 
 export default new Vue({
   el: '#app',
