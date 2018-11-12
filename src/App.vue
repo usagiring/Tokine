@@ -43,6 +43,6 @@
     position: relative;
     top: 40px;
     /*display: flex;*/
-    /*height: calc(100% - 40px);*/
+    height: calc(100% - 40px);
   }
 </style>

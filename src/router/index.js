@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import iView from 'iview';
 import store from '../store/index'
 
 // routes
@@ -30,14 +31,19 @@ let router = new Router({
 })
 
 router.beforeEach(async (to, from, next) => {
+  iView.LoadingBar.start();
   let noSignedAuth = entry.map(item => item.path)
   if (noSignedAuth.includes(to.path)) {
     next()
   } else {
     console.log('need Sign in')
     await store.dispatch('me')
-    store.state.user? next() : next('/sign-in')
+    store.state.user ? next() : next('/sign-in')
   }
 })
+
+router.afterEach(route => {
+  iView.LoadingBar.finish();
+});
 
 export default router

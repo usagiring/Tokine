@@ -4,21 +4,15 @@
       <span>ToKiNe</span>
     </div>
     <div class="sign-btn-group" v-if="user.username">
-      <Dropdown trigger="click">
+      <Dropdown trigger="click" @on-click="userNav">
         <div class="avatar-container">
           <Avatar v-if="user.avatar" :src="avatarSrc"></Avatar>
           <Avatar v-else :icon="defaultAvatar"></Avatar>
         </div>
         <DropdownMenu slot="list">
-          <DropdownItem>
-            <Button type="text">{{ user.username }}</Button>
-          </DropdownItem>
-          <DropdownItem divided>
-            <Button type="text" @click="toProfile">设置</Button>
-          </DropdownItem>
-          <DropdownItem>
-            <Button @click="signOut" type="text">退出</Button>
-          </DropdownItem>
+          <DropdownItem name="username">{{ user.username }}</DropdownItem>
+          <DropdownItem divided name="profile">个人设置</DropdownItem>
+          <DropdownItem @click="signOut" name="signOut">退出</DropdownItem>
         </DropdownMenu>
       </Dropdown>
     </div>
@@ -49,6 +43,18 @@ export default {
     }
   },
   methods: {
+    userNav(action) {
+      switch (action) {
+        case "signOut":
+          this.signOut();
+          break;
+        case "profile":
+          this.toProfile();
+          break;
+        default:
+          break;
+      }
+    },
     signOut() {
       this.$store.dispatch("signOut");
       this.$router.replace("/");
