@@ -36,9 +36,8 @@ router.beforeEach(async (to, from, next) => {
   if (noSignedAuth.includes(to.path)) {
     next()
   } else {
-    console.log('need Sign in')
     await store.dispatch('me')
-    store.state.user ? next() : next('/sign-in')
+    store.state.user && store.state.user._id ? next() : next('/sign-in')
   }
 })
 
