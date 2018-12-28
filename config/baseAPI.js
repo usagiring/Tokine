@@ -1,17 +1,14 @@
-let server = 'https://tokine.online'
+// let server = 'https://tokine.online'
 // let server = ''
-// let server = 'http://localhost:3000'
+const server = 'http://localhost:3000'
 
-let api = '/api'
+const prefix = '/api'
 
-let baseAPI = server + api
+const baseAPI = server + prefix
 
 export {
   server,
-  api,
   baseAPI
 }
 
 export default baseAPI
-// module.exports = 'http://localhost:3333'
-// module.exports = ''

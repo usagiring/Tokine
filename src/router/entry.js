@@ -28,5 +28,9 @@ export default [
   {
     path: '/three',
     component: Three
+  },
+  {
+    path: '/phaser',
+    component: () => import('../components/phaser.vue')
   }
 ]

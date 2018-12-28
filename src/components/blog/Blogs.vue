@@ -15,37 +15,50 @@
 </template>
 
 <script>
-import { get, remove } from "../utilities/rest";
+import { get, remove } from "@/utilities/rest";
+import gql from "graphql-tag";
 
 export default {
   name: "blogs",
+  apollo: {
+    blogs: {
+      query: gql`
+      {
+        blogs {
+          _id,
+          title
+        }
+      }`
+    }
+  },
   data() {
-    return {};
+    return {
+      blogs: []
+    };
   },
-  created() {
-    if (!this.$store.state.blog.loaded) {
-      let url = "/graphql?query={blogs{_id,title}}";
+  // created() {
+  //   if (!this.$store.state.blog.loaded) {
+  //     let url = "/graphql?query={blogs{_id,title}}";
 
-      get(url).then(result => {
-        this.$store.commit("setBlogs", result.data.blogs);
-      });
-    }
-  },
+  //     get(url).then(result => {
+  //       this.$store.commit("setBlogs", result.data.blogs);
+  //     });
+  //   }
+  // },
   computed: {
-    blogs() {
-      return this.$store.state.blog.blogs || [];
-    }
+    // blogs() {
+    //   return this.$store.state.blog.blogs || [];
+    // }
   },
   methods: {
     blogDetail(blog) {
-      return `/blog/${blog._id}`;
+      return `/blogs/${blog._id}`;
     }
   }
 };
 </script>
 
 <style scoped lang="scss">
-
 .blog-container {
   padding-top: 3%;
   width: 60%;

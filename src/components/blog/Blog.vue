@@ -45,7 +45,7 @@
 </template>
 
 <script>
-  import {get, remove, put} from '../utilities/rest'
+  import {get, remove, put} from '@/utilities/rest'
 
   export default {
     name: 'blog',
@@ -72,7 +72,7 @@
       },
       removeBlog() {
         this.deleting = true
-        remove(`/blog/${this.blog._id}`)
+        remove(`/blogs/${this.blog._id}`)
           .then(() => {
             this.$store.commit('removeBlog', this.blog)
             this.$router.replace('/blogs')
@@ -86,7 +86,7 @@
           title: this.title,
           content: this.$refs.editor.getHtml()
         }
-        put(`/blog/${this.blog._id}`, data)
+        put(`/blogs/${this.blog._id}`, data)
           .then(blog => {
             this.blog = blog
             this.editMode = false
@@ -104,7 +104,6 @@
 </script>
 
 <style scoped lang="scss">
-  @import '../style/common/variables';
 
   .container {
     width: 80%;

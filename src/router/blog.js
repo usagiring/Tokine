@@ -1,8 +1,6 @@
-const Blogs = () => import('../components/Blogs.vue')
-const Blog = () => import('../components/Blog.vue')
-const NewBlog = () => import('../components/New-Blog.vue')
-
-// import NewBlog from '../components/New-Blog.vue'
+const Blogs = () => import('../components/blog/Blogs.vue')
+const Blog = () => import('../components/blog/Blog.vue')
+const NewBlog = () => import('../components/blog/New-Blog.vue')
 
 export default [
   {
@@ -11,7 +9,7 @@ export default [
     component: Blogs
   },
   {
-    path: '/blog/:id',
+    path: '/blogs/:id',
     name: 'blog',
     component: Blog
   },
