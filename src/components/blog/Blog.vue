@@ -40,125 +40,135 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-  import {get, remove, put} from '@/utilities/rest'
-  import gql from "graphql-tag";
+import { get, remove, put } from "@/utilities/rest";
+import gql from "graphql-tag";
 
-  export default {
-    name: 'blog',
-    created() {
-      let id = this.$route.params.id
-      let url = `/blog/${id}`
-      get(url)
-        .then(blog => {
-          this.blog = blog
-          this.title = blog.title
-        })
-    },
-    data() {
-      return {
-        blog: {},
-        title: '',
-        deleting: false,
-        editMode: false
-      }
-    },
-    methods: {
-      edit() {
-        this.editMode = !this.editMode
-      },
-      removeBlog() {
-        this.deleting = true
-        remove(`/blogs/${this.blog._id}`)
-          .then(() => {
-            this.$store.commit('removeBlog', this.blog)
-            this.$router.replace('/blogs')
-            this.deleting = false
-            this.$message.success('delete success')
-          })
-      },
-      update() {
-        console.log(this.title)
-        let data = {
-          title: this.title,
-          content: this.$refs.editor.getHtml()
+export default {
+  name: "blog",
+  apollo: {
+    blog: {
+      query: gql`
+        {
+          blog(_id: $_id) {
+            _id
+            title
+            content
+          }
         }
-        put(`/blogs/${this.blog._id}`, data)
-          .then(blog => {
-            this.blog = blog
-            this.editMode = false
-          })
-      },
-      changeTitle(e) {
-        console.log(e)
-//        this.title = e.target.value
+      `,
+      variables: {
+        _id: this._id
       }
-    },
-    computed: {},
-    components: {
     }
-  }
+  },
+  created() {
+    // let id = this.$route.params.id
+    // let url = `/blog/${id}`
+    // get(url)
+    //   .then(blog => {
+    //     this.blog = blog
+    //     this.title = blog.title
+    //   })
+  },
+  data() {
+    return {
+      _id: this.$route.params.id,
+      blog: {},
+      title: "",
+      deleting: false,
+      editMode: false
+    };
+  },
+  methods: {
+    edit() {
+      this.editMode = !this.editMode;
+    },
+    removeBlog() {
+      this.deleting = true;
+      remove(`/blogs/${this.blog._id}`).then(() => {
+        this.$store.commit("removeBlog", this.blog);
+        this.$router.replace("/blogs");
+        this.deleting = false;
+        this.$Message.success("delete success");
+      });
+    },
+    update() {
+      console.log(this.title);
+      let data = {
+        title: this.title,
+        content: this.$refs.editor.getHtml()
+      };
+      put(`/blogs/${this.blog._id}`, data).then(blog => {
+        this.blog = blog;
+        this.editMode = false;
+      });
+    },
+    changeTitle(e) {
+      console.log(e);
+      //        this.title = e.target.value
+    }
+  },
+  computed: {},
+  components: {}
+};
 </script>
 
 <style scoped lang="scss">
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
 
-  .container {
-    width: 80%;
-    margin: 0 auto;
+.action-btn-group {
+  position: fixed;
+
+  transition: 0.5s width;
+  width: 60px;
+  height: auto;
+  background: $extra-light-black;
+  color: $white;
+
+  &:hover {
+    width: 150px;
   }
+}
 
-  .action-btn-group {
-    position: fixed;
+.action-button {
+  position: relative;
+  padding: 20px;
 
-    transition: .5s width;
-    width: 60px;
-    height: auto;
-    background: $extra-light-black;
-    color: $white;
-
-    &:hover {
-      width: 150px;
-    }
+  &:hover {
+    background: $light-blue;
   }
+}
 
-  .action-button {
-    position: relative;
-    padding: 20px;
+.button-info {
+  font-size: 14px;
+  position: absolute;
+  left: 60px;
+  top: 23px;
+}
 
-    &:hover {
-      background: $light-blue;
-    }
-  }
+.delete-btn {
+  background: $danger;
+}
 
-  .button-info {
-    font-size: 14px;
-    position: absolute;
-    left: 60px;
-    top: 23px;
+.icon-btn {
+  font-size: 20px;
+}
 
-  }
+.title-container {
+  position: relative;
+  top: 20px;
+  text-align: center;
+}
 
-  .delete-btn {
-    background: $danger;
-
-  }
-
-  .icon-btn {
-    font-size: 20px;
-  }
-
-  .title-container {
-    position: relative;
-    top: 20px;
-    text-align: center;
-  }
-
-  .editor-container {
-    position: relative;
-    top: 40px;
-  }
+.editor-container {
+  position: relative;
+  top: 40px;
+}
 </style>

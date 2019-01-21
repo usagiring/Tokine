@@ -78,14 +78,13 @@ export default {
   methods: {
     async publish() {
       if (!this.title) {
-        this.$message.error("please input title");
+        this.$Message.error("please input title");
         return;
       }
       let data = {
         title: this.title,
         content: this.$refs.editor.getHtml()
       };
-      let url = "/blogs";
       let res = await this.$apollo.mutate({
         mutation: gql`
           mutation($content: String!, $title: String!) {
@@ -164,9 +163,6 @@ export default {
 .title-container {
   position: relative;
   top: 20px;
-}
-
-.title-input {
 }
 
 .icon-container {
