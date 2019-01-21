@@ -52,7 +52,7 @@ export default {
   apollo: {
     blog: {
       query: gql`
-        {
+        query QueryBlog($_id: ObjectId!) {
           blog(_id: $_id) {
             _id
             title
@@ -60,20 +60,14 @@ export default {
           }
         }
       `,
-      variables: {
-        _id: this._id
+      variables() {
+        return {
+          _id: this.$route.params.id
+        };
       }
     }
   },
-  created() {
-    // let id = this.$route.params.id
-    // let url = `/blog/${id}`
-    // get(url)
-    //   .then(blog => {
-    //     this.blog = blog
-    //     this.title = blog.title
-    //   })
-  },
+  created() {},
   data() {
     return {
       _id: this.$route.params.id,
@@ -97,7 +91,6 @@ export default {
       });
     },
     update() {
-      console.log(this.title);
       let data = {
         title: this.title,
         content: this.$refs.editor.getHtml()
