@@ -33,7 +33,7 @@
       </div>
       <div v-else>
         <div class="title-container">
-          <el-input class="title-input" v-model="title" placeholder="请输入标题"></el-input>
+          <Input class="title-input" v-model="title" placeholder="请输入标题"/>
         </div>
         <div class="editor-container">
           <html-editor :text="blog.content" ref="editor"></html-editor>
@@ -46,6 +46,7 @@
 
 <script>
   import {get, remove, put} from '@/utilities/rest'
+  import gql from "graphql-tag";
 
   export default {
     name: 'blog',

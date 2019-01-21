@@ -4,7 +4,7 @@
       <div v-for="blog in blogs" :key="blog._id">
         <div class="blog-item-container">
           <div class="title-container">
-            <router-link class="title" :to="blogDetail(blog)">
+            <router-link class="title" :to="detail(blog)">
               <span>{{blog.title}}</span>
             </router-link>
           </div>
@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import { get, remove } from "@/utilities/rest";
 import gql from "graphql-tag";
 
 export default {
@@ -23,12 +22,13 @@ export default {
   apollo: {
     blogs: {
       query: gql`
-      {
-        blogs {
-          _id,
-          title
+        {
+          blogs {
+            _id
+            title
+          }
         }
-      }`
+      `
     }
   },
   data() {
@@ -36,22 +36,9 @@ export default {
       blogs: []
     };
   },
-  // created() {
-  //   if (!this.$store.state.blog.loaded) {
-  //     let url = "/graphql?query={blogs{_id,title}}";
-
-  //     get(url).then(result => {
-  //       this.$store.commit("setBlogs", result.data.blogs);
-  //     });
-  //   }
-  // },
-  computed: {
-    // blogs() {
-    //   return this.$store.state.blog.blogs || [];
-    // }
-  },
+  computed: {},
   methods: {
-    blogDetail(blog) {
+    detail(blog) {
       return `/blogs/${blog._id}`;
     }
   }
