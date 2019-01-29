@@ -1,5 +1,3 @@
-import {get} from '../../utilities/rest'
-
 let schema = {
   content: '',
   blogs: [],
