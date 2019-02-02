@@ -27,7 +27,7 @@
     </div>
     <div class="mid-container">
       <div class="title-container">
-        <Input class="title-input" v-model="title" placeholder="请输入标题"/>
+        <input class="title-input" v-model="title" placeholder="请输入标题" maxlength="40">
       </div>
 
       <div class="editor-wrapper">
@@ -103,11 +103,8 @@ export default {
       this.$router.push(`/blogs/${this.id}`);
     },
     changeEditor() {
-      if (this.currentEditor === "html-editor") {
-        this.currentEditor = "markdown";
-      } else {
-        this.currentEditor = "html-editor";
-      }
+      this.currentEditor =
+        this.currentEditor === "html-editor" ? "markdown" : "html-editor";
     },
     preview() {
       this.showPreviewDialog = true;
@@ -123,6 +120,8 @@ export default {
 <style scoped lang="scss">
 #new-blog {
   background: $white;
+  margin: 0;
+  padding: 0;
 }
 
 .action-btn-group {
@@ -142,12 +141,24 @@ export default {
 .mid-container {
   position: relative;
   margin: 0 auto;
-  width: 80%;
+  width: 70%;
+}
+
+.title-input {
+  height: 60px;
+  width: 100%;
+  font-size: 20px;
+
+  padding: 0px 15px;
+  border: none;
+
+  &:focus {
+    outline: none
+  }
 }
 
 .editor-wrapper {
   position: relative;
-  top: 40px;
 }
 
 .action-button {
@@ -162,7 +173,7 @@ export default {
 
 .title-container {
   position: relative;
-  top: 20px;
+  padding-top: 20px;
 }
 
 .icon-container {
