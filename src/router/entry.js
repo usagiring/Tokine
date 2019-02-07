@@ -32,5 +32,13 @@ export default [
   {
     path: '/phaser',
     component: () => import('../components/phaser.vue')
+  },
+  {
+    path: '/qrcode',
+    component: () => import('../components/QRCode.vue')
+  },
+  {
+    path: '/lottery',
+    component: () => import('../components/Lottery.vue')
   }
 ]

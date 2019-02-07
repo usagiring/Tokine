@@ -2,12 +2,16 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <h3>欢迎来到其妙的个人空间，你可以</h3>
-    <router-link to="/chat-room">去聊天</router-link>
-    <router-link to="/blogs">看博客</router-link>
-    <router-link to="/blog-new">写博客</router-link>
-    <router-link to="/three">3D模型预览</router-link>
-    <router-link to="/calculator">幻想神域伤害计算器</router-link>
-    <h5><s>我火舞烙影劝你们谨言慎行</s></h5>
+    <router-link class="link" to="/chat-room">去聊天</router-link>
+    <router-link class="link" to="/blogs">看博客</router-link>
+    <router-link class="link" to="/blog-new">写博客</router-link>
+    <router-link class="link" to="/three">3D模型预览</router-link>
+    <router-link class="link" to="/calculator">幻想神域伤害计算器</router-link>
+    <router-link class="link" to="/qrcode">二维码生产器</router-link>
+    <router-link class="link" to="/lottery">双色球概率</router-link>
+    <h5>
+      <s>我火舞烙影劝你们谨言慎行</s>
+    </h5>
   </div>
 </template>
 
@@ -61,5 +65,8 @@ a {
   text-align: center;
   color: #2c3e50;
   padding-top: 60px;
+}
+.link {
+  display: block;
 }
 </style>
