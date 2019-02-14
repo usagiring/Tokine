@@ -36,9 +36,5 @@ export default [
   {
     path: '/qrcode',
     component: () => import('../components/QRCode.vue')
-  },
-  {
-    path: '/lottery',
-    component: () => import('../components/Lottery.vue')
   }
 ]
