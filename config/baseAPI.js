@@ -1,6 +1,6 @@
-// let server = 'https://tokine.online'
-let server = ''
-// const server = 'http://localhost:3000'
+// const server = 'https://tokine.online'
+// const server = ''
+const server = 'http://localhost:3000'
 
 const prefix = '/api'
 
