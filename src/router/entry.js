@@ -6,40 +6,40 @@ const Three = () => import('../components/Three.vue')
 const Danmaku = () => import('../components/Danmaku.vue')
 
 export default [
-  {
-    path: '/',
-    // redirect: '/login'
-    // name: 'Hello',
-    component: Hello
-  },
-  {
-    path: '/sign-in',
-    name: 'sign-in',
-    component: SignIn
-  },
-  {
-    path: '/sign-up',
-    name: 'sign-up',
-    component: SignUp
-  },
+  // {
+  //   path: '/',
+  //   // redirect: '/login'
+  //   // name: 'Hello',
+  //   component: Hello
+  // },
+  // {
+  //   path: '/sign-in',
+  //   name: 'sign-in',
+  //   component: SignIn
+  // },
+  // {
+  //   path: '/sign-up',
+  //   name: 'sign-up',
+  //   component: SignUp
+  // },
   {
     path: '/calculator',
     component: Calculator
   },
   {
-    path: '/three',
-    component: Three
-  },
-  {
-    path: '/phaser',
-    component: () => import('../components/phaser.vue')
-  },
-  {
-    path: '/qrcode',
-    component: () => import('../components/QRCode.vue')
-  },
-  {
     path: '/danmaku',
     component: Danmaku
   }
+  // {
+  //   path: '/three',
+  //   component: Three
+  // },
+  // {
+  //   path: '/phaser',
+  //   component: () => import('../components/phaser.vue')
+  // },
+  // {
+  //   path: '/qrcode',
+  //   component: () => import('../components/QRCode.vue')
+  // }
 ]

@@ -12,9 +12,9 @@
     <h5>
       <s>我火舞烙影劝你们谨言慎行</s>
     </h5>
-    <h5>本地时间： {{ time }}</h5>
+    <!-- <h5>本地时间： {{ time }}</h5>
     <h5>服务器时间： {{ serverTime }}</h5>
-    <h5>stauts： {{status }}</h5>
+    <h5>stauts： {{status }}</h5> -->
   </div>
 </template>
 
@@ -46,20 +46,20 @@ export default {
         return 'failure!!!!'
       }
     }
-  },
-  mounted() {
-    let self = this;
-    requestAnimationFrame(time);
-    setInterval(async () => {
-      const time = await get("/time");
-      self.serverTime = time;
-    }, 500);
-
-    function time() {
-      self.time = Date.now();
-      requestAnimationFrame(time);
-    }
   }
+  // mounted() {
+  //   let self = this;
+  //   requestAnimationFrame(time);
+  //   setInterval(async () => {
+  //     const time = await get("/time");
+  //     self.serverTime = time;
+  //   }, 500);
+
+  //   function time() {
+  //     self.time = Date.now();
+  //     requestAnimationFrame(time);
+  //   }
+  // }
 };
 </script>
 

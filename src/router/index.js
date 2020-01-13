@@ -14,20 +14,10 @@ const Editor = () => import('../components/markdown.vue')
 
 Vue.use(Router)
 
-let routes = [
-  {
-    path: '/markdown-editor',
-    component: Editor
-  },
-  ...entry,
-  ...user,
-  ...chatRoom,
-  ...blog,
-  ...lottery
-]
+let routes = entry
 
 let router = new Router({
-  mode: 'history',
+  mode: 'hash',
   routes
 })
 
