@@ -14,6 +14,7 @@
     />
     <Button id="watch-button" type="primary" @click="startWatch">开始</Button>
     <Button id="watch-button" @click="stopWatch">停止</Button>
+    <Button id="watch-button" @click="showUsers">有效用户</Button>
     <div id="chart"></div>
   </div>
 </template>
@@ -27,7 +28,7 @@ let HEART_BEAT_TIMER = null;
 let chart;
 let keywords;
 let data;
-const userMap = {};
+let userMap = {};
 
 const wsBinaryHeaderList = [
   {
@@ -300,6 +301,7 @@ export default {
               });
               if (!~index) return;
 
+              userMap[uid] = name;
               data[index]++;
               makeChart(keywords, data);
             }
@@ -334,12 +336,27 @@ export default {
       chart = echarts.init(document.getElementById("chart"));
       data = keywords.map(_ => 0);
       makeChart(keywords, []);
+      userMap = {};
       this.$Message.info("开始统计弹幕");
       this.isWatching = true;
     },
     stopWatch() {
       this.$Message.info("统计停止");
       this.isWatching = false;
+    },
+    showUsers() {
+      this.$Modal.confirm({
+        render: h => {
+          const names = Object.values(userMap);
+
+          return h(
+            "div",
+            names.map(name => {
+              return h("p", name);
+            })
+          );
+        }
+      });
     }
   },
   created() {
