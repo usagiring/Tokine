@@ -3,6 +3,7 @@
     <div class="input-wrapper">
       <Input id="room-id-input" v-model="roomId" placeholder="请输入房间号" number type="number" />
       <Button id="connect-button" type="primary" @click="connect" :loading="loading">连接</Button>
+      <Button id="connect-button" @click="disconnect">断开</Button>
     </div>
     <Input
       id="keyword-input-area"
@@ -12,6 +13,7 @@
       placeholder="输入关键字，回车分隔"
     />
     <Button id="watch-button" type="primary" @click="startWatch">开始</Button>
+    <Button id="watch-button" @click="stopWatch">停止</Button>
     <div id="chart"></div>
   </div>
 </template>
@@ -228,7 +230,7 @@ export default {
     return {
       roomId: null,
       keyText: "",
-      isStartWatch: false,
+      isWatching: false,
       loading: false
     };
   },
@@ -287,7 +289,7 @@ export default {
               const msg = item.info[1];
               const [uid, name] = item.info[2];
               console.log(`${name}: ${msg}`);
-              if (!self.isStartWatch) return;
+              if (!self.isWatching) return;
               if (!keywords || !keywords.length) return;
               if (!chart) return;
 
@@ -320,6 +322,10 @@ export default {
         self.loading = false;
       };
     },
+    disconnect() {
+      if (!ws) return;
+      ws.close();
+    },
     startWatch() {
       keywords = this.keyText.split(/\n/g);
       if (chart) {
@@ -328,7 +334,12 @@ export default {
       chart = echarts.init(document.getElementById("chart"));
       data = keywords.map(_ => 0);
       makeChart(keywords, []);
-      this.isStartWatch = true;
+      this.$Message.info("开始统计弹幕");
+      this.isWatching = true;
+    },
+    stopWatch() {
+      this.$Message.info("统计停止");
+      this.isWatching = false;
     }
   },
   created() {
