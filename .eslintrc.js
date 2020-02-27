@@ -36,6 +36,7 @@ module.exports = {
     'quotes': 0,
     'spaced-comment': 0,
     'no-tabs': 0,
-    'space-infix-ops': 0
+    'space-infix-ops': 0,
+    'yoda': 0
   }
 }

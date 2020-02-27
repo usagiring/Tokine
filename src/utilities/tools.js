@@ -21,3 +21,7 @@ export function graphql(name, where, projection) {
   return `{${name}(${where}){${projection}}}`
 
 }
+
+export function roll(rate){
+  return Math.random() < rate
+}

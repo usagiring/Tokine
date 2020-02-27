@@ -18,14 +18,13 @@ let routes = [
   {
     path: '/markdown-editor',
     component: Editor
-  }
-].concat(
-  entry,
-  user,
-  chatRoom,
-  blog,
-  lottery
-)
+  },
+  ...entry,
+  ...user,
+  ...chatRoom,
+  ...blog,
+  ...lottery
+]
 
 let router = new Router({
   mode: 'history',

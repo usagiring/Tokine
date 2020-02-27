@@ -3,6 +3,7 @@ import SignIn from '../components/SignIn.vue'
 import SignUp from '../components/SignUp.vue'
 const Calculator = () => import('../components/Calculator.vue')
 const Three = () => import('../components/Three.vue')
+const Danmaku = () => import('../components/Danmaku.vue')
 
 export default [
   {
@@ -36,5 +37,9 @@ export default [
   {
     path: '/qrcode',
     component: () => import('../components/QRCode.vue')
+  },
+  {
+    path: '/danmaku',
+    component: Danmaku
   }
 ]
