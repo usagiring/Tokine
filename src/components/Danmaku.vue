@@ -21,6 +21,7 @@
 
 <script>
 import * as echarts from "echarts";
+import { inflate } from "pako";
 
 const URI = "wss://broadcastlv.chat.bilibili.com:2245/sub";
 let ws;
@@ -115,7 +116,7 @@ function convertToObject(arraybuffer) {
       try {
         if (output.ver === 2) {
           const l = arraybuffer.slice(i + u, i + o);
-          const f = new Uint8Array(l);
+          const f = inflate(l);
           c = convertToObject(f.buffer).body;
         } else {
           c = JSON.parse(decoder.decode(arraybuffer.slice(i + u, i + o)));
@@ -285,26 +286,30 @@ export default {
         const result = convertToObject(evt.data);
 
         result.body.forEach &&
-          result.body.forEach(function(item) {
-            if (item.cmd === "DANMU_MSG") {
-              const msg = item.info[1];
-              const [uid, name] = item.info[2];
-              console.log(`${name}: ${msg}`);
-              if (!self.isWatching) return;
-              if (!keywords || !keywords.length) return;
-              if (!chart) return;
+          result.body.forEach(function(items) {
+            items.forEach(item => {
+              if (item.cmd === "DANMU_MSG") {
+                const msg = item.info[1];
+                const [uid, name] = item.info[2];
+                console.log(`${name}: ${msg}`);
+                if (!self.isWatching) return;
+                if (!keywords || !keywords.length) return;
+                if (!chart) return;
 
-              if (userMap[uid]) return;
-              const regexps = keywords.map(keyword => new RegExp(keyword, "i"));
-              const index = regexps.findIndex(regexp => {
-                return !!~msg.search(regexp);
-              });
-              if (!~index) return;
+                if (userMap[uid]) return;
+                const regexps = keywords.map(
+                  keyword => new RegExp(keyword, "i")
+                );
+                const index = regexps.findIndex(regexp => {
+                  return !!~msg.search(regexp);
+                });
+                if (!~index) return;
 
-              userMap[uid] = name;
-              data[index]++;
-              makeChart(keywords, data);
-            }
+                userMap[uid] = name;
+                data[index]++;
+                makeChart(keywords, data);
+              }
+            });
           });
 
         if (result.op === 8) {
