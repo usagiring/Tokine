@@ -20,7 +20,7 @@
     "cropperjs": "^1.5.5",
     "echarts": "^4.2.1",
     "iview": "^3.4.2",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.15",
     "mmd-parser": "^1.0.3",
     "phaser": "^3.19.0",
